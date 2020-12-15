@@ -1,6 +1,5 @@
 #include "graphics.h"
 #include "Game.h"
-#include "Fruit.h"
 #include "Player.h"
 #include "config.h"
 
@@ -14,15 +13,6 @@ void draw()
 {
     Game* game = reinterpret_cast<Game*> (graphics::getUserData());
     game->draw();
-
-    //to text einai se epomeni dialeksi
-    graphics::Brush brush;
-    brush.fill_color[0] = 0.0f;
-    brush.fill_color[1] = 0.0f;
-    brush.fill_color[2] = 0.0f;
-
-    graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 10, 50, "SCORE", brush);
-    graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 7, 20, "Press A for left and D for right", brush);
 }
 
 int main()
@@ -43,13 +33,12 @@ int main()
     graphics::setWindowBackground(brush);
     brush.texture = "";
 
-    graphics::setFont(std::string(FONT_ASSETS_PATH) + "/ARCADECLASSIC.ttf");
-
     Game cb;
 
     graphics::setUserData(&cb);
 
     cb.init();
+    cb.setDebugMode(true);
 
     graphics::startMessageLoop();
 

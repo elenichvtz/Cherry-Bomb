@@ -31,7 +31,7 @@ void Player::draw()
 	graphics::Brush brush;
 	brush.outline_opacity = 0.0f;
 
-	brush.texture = std::string(PLAYER_ASSETS_PATH) + "/player.png";
+	brush.texture = std::string(PLAYER_ASSETS_PATH) + "player.png";
 	brush.fill_opacity = 1.0f;
 	//den evala rotation de nomizo oti xreiazetai
 	graphics::drawRect(pos_x, pos_y, 250, 250, brush);
