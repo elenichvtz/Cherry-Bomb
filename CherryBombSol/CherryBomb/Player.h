@@ -10,6 +10,8 @@ class Player : public Object
 	int score = 0;
 
 public:
+	Player(const class Game& game);
+
 	void update() override;
 
 	void draw() override;

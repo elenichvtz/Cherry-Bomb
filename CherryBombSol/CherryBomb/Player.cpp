@@ -1,6 +1,12 @@
 #include "graphics.h"
 #include "Player.h"
 #include "config.h"
+#include "Game.h"
+
+Player::Player(const Game& game)
+	:Object(game)
+{
+}
 
 void Player::update()
 {

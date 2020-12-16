@@ -1,17 +1,47 @@
 #include "graphics.h"
 #include "Game.h"
 #include "config.h"
+#include <iostream>
+
+void Game::spawnCherry()
+{
+	if (!cherry)
+		cherry = new Cherry(*this);
+}
+
+void Game::spawnFruit()
+{
+}
+
+void Game::checkCherry()
+{
+	if (cherry && !cherry->getCherryState())
+	{
+		delete cherry;
+		cherry = nullptr;
+	}
+}
 
 void Game::update()
 {
 	if (!player_init)
 	{
-		player = new Player();
+		player = new Player(*this);
 		player_init = true;
 	}
 
 	if (player)
+	{
 		player->update();
+	}
+
+	checkCherry();
+	spawnCherry();
+
+	if (cherry)
+	{
+		cherry->update();
+	}
 }
 
 void Game::draw()
@@ -21,6 +51,11 @@ void Game::draw()
 	//draw player
 	if (player)
 		player->draw();
+
+	//draw cherry
+	//xreiazetai ena for loop gia ta polla cherries & mia sunartisi tupou drawEnemies pou kanei iterate oli ti lista/sullogi kai antistoixa gia tin update
+	if (cherry)
+		cherry->draw();
 
 	//UI
 	if (player)
@@ -47,7 +82,7 @@ void Game::draw()
 void Game::init()
 {
 	graphics::setFont(std::string(FONT_ASSETS_PATH) + "ARCADECLASSIC.ttf");
-	graphics::playMusic(std::string(MUSIC_ASSETS_PATH) + "NCT_127-Cherry_Bomb_Instrumental.mp3", 0.4f, true, 3000);
+	graphics::playMusic(std::string(AUDIO_ASSETS_PATH) + "NCT_127-Cherry_Bomb_Instrumental.mp3", 0.4f, true, 3000);
 }
 
 Game::Game()

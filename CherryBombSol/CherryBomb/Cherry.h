@@ -1,11 +1,13 @@
 #pragma once
-#include "graphics.h"
 #include "Object.h"
 #include "config.h"
 
 class Cherry :public Object
 {
-	float pos_x = CANVAS_WIDTH / 2, pos_y = 9 * CANVAS_HEIGHT / 10, speed = 80.f;
+	float pos_x, pos_y, size, speed, rotation;
+	graphics::Brush brush;
+	bool active = true;
+
 public:
 	void update()override;
 
@@ -13,7 +15,9 @@ public:
 
 	void init() override;
 
-	Cherry();
+	bool getCherryState() { return active; }
+
+	Cherry(const class Game& game);
 
 	~Cherry();
 };
