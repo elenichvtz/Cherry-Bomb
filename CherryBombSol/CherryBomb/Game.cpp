@@ -150,9 +150,6 @@ void Game::drawGameScreen()
 	if (cherry)
 		cherry->draw();
 
-	if (shot)
-		shot->draw();
-
 	//UI/info layer -> could become a separate class
 	if (player)
 	{
@@ -229,18 +226,8 @@ void Game::updateGameScreen()
 	}
 
 	if (player)
-		player->update();
-
-	checkCherry();
-	spawnCherry();
-
-	if (cherry)
-		cherry->update();
-
-	if (shot)
 	{
-		shot->update();
-
+		player->update();
 		if (checkCollision())
 		{
 			//bang!
@@ -252,6 +239,12 @@ void Game::updateGameScreen()
 			if (player->getLife() <= 0) game_status = END;
 		}
 	}
+
+	checkCherry();
+	spawnCherry();
+
+	if (cherry)
+		cherry->update();
 }
 
 void Game::updateEndScreen()
