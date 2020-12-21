@@ -7,6 +7,7 @@ void Game::spawnCherry()
 {
 	if (!cherry)
 		cherry = new Cherry(*this);
+	//std::cout << "sss";
 }
 
 void Game::spawnFruit()
@@ -36,6 +37,7 @@ void Game::update()
 	}
 
 	checkCherry();
+
 	spawnCherry();
 
 	if (cherry)
@@ -58,8 +60,11 @@ void Game::draw()
 		cherry->draw();
 
 	//UI
-	if (player)
+	if (player && debug_mode)
 	{
+		//char pos[40];
+		//sprintf_s(pos, "x: %1.2f, y: %1.2f", cherry->getx(), cherry->gety());
+
 		char lives[10];
 		//dynamically shows lives
 		sprintf_s(lives, "Lives %x", player->getPlayerLives());
@@ -74,6 +79,7 @@ void Game::draw()
 		brush.fill_color[2] = 0.0f;
 
 		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 10, 50, score, brush);
+		//graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 10, 20, pos, brush);
 		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 7, 30, lives, brush);
 		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 5, 20, "Press A for left and D for right", brush);
 	}

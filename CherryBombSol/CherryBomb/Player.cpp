@@ -10,12 +10,12 @@ Player::Player(const Game& game)
 
 void Player::update()
 {
-	//A for left
+	//A or LEFT ARROW for left
 	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
 	{
 		pos_x -= speed * graphics::getDeltaTime() / 150.f;
 	}
-	//D for right
+	//D or RIGHT ARROW for right
 	if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
 	{
 		pos_x += speed * graphics::getDeltaTime() / 150.f;

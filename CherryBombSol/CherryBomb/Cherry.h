@@ -4,8 +4,9 @@
 
 class Cherry :public Object
 {
+	//thelei kai kateuthinsi
 	float pos_x, pos_y, size, speed, rotation;
-	graphics::Brush brush;
+	class graphics::Brush brush;
 	bool active = true;
 
 public:
@@ -20,4 +21,7 @@ public:
 	Cherry(const class Game& game);
 
 	~Cherry();
+
+	float getx() { return pos_x; }
+	float gety() { return pos_y; }
 };
