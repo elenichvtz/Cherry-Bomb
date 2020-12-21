@@ -5,8 +5,9 @@ C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.cpp(69,21): warning C42
   Game.cpp
 C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
 C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
-C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(173,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(185,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(190,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(202,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(221,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Main.cpp
 C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
 C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'

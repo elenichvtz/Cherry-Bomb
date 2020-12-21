@@ -8,7 +8,7 @@ class Cherry : public Object, public Collidable
 
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT / 2;
 	float size, speed;
-	//thelei kai kateuthinsi
+	//float dorection; coming from left or right
 	class graphics::Brush brush;
 	bool active = true;
 

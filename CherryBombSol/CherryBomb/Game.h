@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Cherry.h"
+#include <list>
 
 class Game
 {
@@ -13,11 +14,15 @@ class Game
 	
 	//xreiazetai lista me ta polla cherries kai polla fruits
 	
+	std::list<int> scoreboard;
+
 	Cherry* cherry = nullptr;
 	//for cherries
 	void spawnCherry();
 	void checkCherry();
 	bool checkCollision();
+	void updateScoreboard();
+	void resetPlayer();
 	//for the rest of the fruits
 	void spawnFruit();
 
@@ -40,4 +45,7 @@ public:
 	int getGameMode() { return game_status; }
 	bool getDebugMode() const { return debug_mode; }
 	void setDebugMode(bool d) { debug_mode = d; }
+
+	//std::list<int> getScoreboard() { return scoreboard; }
+	//void setScoreboard(std::list<int> s) { scoreboard = s; }
 };

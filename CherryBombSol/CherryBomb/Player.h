@@ -16,7 +16,10 @@ public:
     void draw() override;
     void init() override;
     int getScore() { return score; }
+    void setScore(int i) { score = i; }
+    void incrementScore() { score += 50; } //endeiktiko
     Disk getCollisionHull() const override; //for testing purposes
     int getLife() const { return life; }
+    void setLife(int i) { life = i; }
     void loseLife() { life -= 1; }
 };

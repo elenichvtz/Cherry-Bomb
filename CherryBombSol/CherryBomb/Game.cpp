@@ -1,13 +1,11 @@
 #include "graphics.h"
 #include "Game.h"
 #include "config.h"
-//#include <iostream>
 
 void Game::spawnCherry()
 {
 	if (!cherry)
 		cherry = new Cherry(*this);
-	//std::cout << "sss";
 }
 
 void Game::spawnFruit()
@@ -39,10 +37,29 @@ bool Game::checkCollision()
 	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
 	{
 		player->loseLife();
+		player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
 		return true;
 	}
 	else
 		return false;
+}
+
+void Game::resetPlayer() {
+	if (player) {
+		updateScoreboard(); //TO DO:: otan paizeis prwth fora den krataei to score gia kapoio logo,
+		//to psaxnw akoma
+		player->setScore(0);
+		player->setLife(5);
+	}
+}
+
+void Game::updateScoreboard() {
+	if (player) {
+		scoreboard.push_back(player->getScore());
+		scoreboard.sort();
+		if (scoreboard.size() > 5) scoreboard.pop_back();
+		//setScoreboard(scoreboard);
+	}
 }
 
 void Game::update()
@@ -55,9 +72,8 @@ void Game::update()
 
 void Game::draw()
 {
-	//TODO: draw background -> alla boroume apla na to afisoume ena xroma (autos vazei eikona)
 	graphics::Brush br;
-	br.texture = std::string(BACKGROUND_PATH) + "background.png";
+	//br.texture = std::string(BACKGROUND_PATH) + "background.png";
 	br.outline_opacity = 0.0f;
 	graphics::drawRect(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT, br);
 	
@@ -195,7 +211,17 @@ void Game::drawEndScreen()
 	br.fill_color[1] = 0.f;
 	br.fill_color[2] = 0.f;
 
-	graphics::drawText(280, CANVAS_HEIGHT / 2, 80, "GAME OVER", br);
+	graphics::drawText(280, 100, 80, "GAME OVER", br);
+	graphics::drawText(300, 150, 30, "PRESS ENTER TO PLAY AGAIN", br);
+	graphics::drawText(350, 250, 30, "SCOREBOARD", br);
+
+	int y = 300;
+	for (auto const& i : scoreboard) {
+		graphics::drawText(400, y, 30, std::to_string(i*y), br); 
+		//ebala to *y gia na dw an kanei kala to sort, meta to vgazoume
+		//den ginetai kala to sort...
+		y += 30;
+	}
 }
 
 void Game::updateTitleScreen()
@@ -244,5 +270,9 @@ void Game::updateGameScreen()
 
 void Game::updateEndScreen()
 {
-	//maybe nothing here idk
+	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
+	{
+		resetPlayer();
+		game_status = GAME;
+	}
 }
