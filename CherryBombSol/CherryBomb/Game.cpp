@@ -72,10 +72,14 @@ void Game::update()
 
 void Game::draw()
 {
-	graphics::Brush br;
-	//br.texture = std::string(BACKGROUND_PATH) + "background.png";
-	br.outline_opacity = 0.0f;
-	graphics::drawRect(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT, br);
+	graphics::Brush brush;
+	brush.outline_opacity = 0.0f;
+	brush.fill_color[0] = 0.0f;
+	brush.fill_color[1] = 0.0f;
+	brush.fill_color[2] = 0.0f;
+	graphics::setWindowBackground(brush);
+	
+	graphics::drawRect(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT, brush);
 	
 	if (game_status == TITLE) drawTitleScreen();
 	else if (game_status == WEAPON) drawWeaponScreen();
@@ -135,9 +139,9 @@ Game::~Game()
 void Game::drawTitleScreen()
 {
 	graphics::Brush br;
-	br.fill_color[0] = 0.f;
-	br.fill_color[1] = 0.f;
-	br.fill_color[2] = 0.f;
+	br.fill_color[0] = 1.0f;
+	br.fill_color[1] = 1.0f;
+	br.fill_color[2] = 1.0f;
 
 	graphics::drawText(200, 200, 100, "CHERRY BOMB", br);
 
@@ -152,9 +156,9 @@ void Game::drawTitleScreen()
 void Game::drawWeaponScreen()
 {
 	graphics::Brush br;
-	br.fill_color[0] = 0.f;
-	br.fill_color[1] = 0.f;
-	br.fill_color[2] = 0.f;
+	br.fill_color[0] = 1.0f;
+	br.fill_color[1] = 1.0f;
+	br.fill_color[2] = 1.0f;
 
 	//char weapon[40];
 	//sprintf_s(weapon, "CHOOSE YOUR WEAPON");
@@ -180,9 +184,9 @@ void Game::drawGameScreen()
 		char score[40];
 		sprintf_s(score, "SCORE %i", player->getScore());
 		graphics::Brush br;
-		br.fill_color[0] = 0.f;
-		br.fill_color[1] = 0.f;
-		br.fill_color[2] = 0.f;
+		br.fill_color[0] = 1.0f;
+		br.fill_color[1] = 1.0f;
+		br.fill_color[2] = 1.0f;
 		graphics::drawText(50, 50, 40, score, br);
 	}
 	//life
@@ -190,15 +194,15 @@ void Game::drawGameScreen()
 
 	graphics::Brush br;
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "heart.png";
-	br.fill_opacity = 1.f;
-	br.outline_opacity = 0.f;
-	br.outline_color[0] = 0.f;
-	br.outline_color[1] = 0.f;
-	br.outline_color[2] = 0.f;
+	br.fill_opacity = 1.0f;
+	br.outline_opacity = 0.0f;
+	br.outline_color[0] = 1.0f;
+	br.outline_color[1] = 1.0f;
+	br.outline_color[2] = 1.0f;
 	int x = 180;
 	for (int i = 0; i < life; i++)
 	{
-		graphics::drawRect(CANVAS_WIDTH - x, 30, 30, 30, br);
+		graphics::drawRect(CANVAS_WIDTH - x, 30, 40, 40, br);
 		x -= 30;
 	}
 
@@ -207,9 +211,9 @@ void Game::drawGameScreen()
 void Game::drawEndScreen()
 {
 	graphics::Brush br;
-	br.fill_color[0] = 0.f;
-	br.fill_color[1] = 0.f;
-	br.fill_color[2] = 0.f;
+	br.fill_color[0] = 1.0f;
+	br.fill_color[1] = 1.0f;
+	br.fill_color[2] = 1.0f;
 
 	graphics::drawText(280, 100, 80, "GAME OVER", br);
 	graphics::drawText(300, 150, 30, "PRESS ENTER TO PLAY AGAIN", br);
