@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Cherry.h"
+#include "Shot.h"
 #include <list>
 
 class Game
@@ -20,11 +21,19 @@ class Game
 	//for cherries
 	void spawnCherry();
 	void checkCherry();
-	bool checkCollision();
-	void updateScoreboard();
-	void resetPlayer();
+
 	//for the rest of the fruits
 	void spawnFruit();
+
+	//shots
+	Shot* shot = nullptr;
+	void spawnShot();
+	void checkShot();
+
+	bool checkCollision();
+
+	void updateScoreboard();
+	void resetPlayer();
 
 	void drawTitleScreen();
 	void drawWeaponScreen();

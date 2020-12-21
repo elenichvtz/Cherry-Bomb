@@ -3,7 +3,7 @@
 #include "Object.h"
 #include "config.h"
 
-class Player : public Object, public Collidable //it's not actually collidable so we will remove it later
+class Player : public Object
 {
 	float speed = 8.0f;
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT - 50;
@@ -11,14 +11,19 @@ class Player : public Object, public Collidable //it's not actually collidable s
 	int life = 5;
 
 public:
-    Player(const class Game& mygame);
+    Player(const class Game& game);
     void update() override;
     void draw() override;
     void init() override;
+
+    float getX() { return pos_x; }
+
+    float getY() { return pos_y; }
+
     int getScore() { return score; }
     void setScore(int i) { score = i; }
     void incrementScore() { score += 50; } //endeiktiko
-    Disk getCollisionHull() const override; //for testing purposes
+
     int getLife() const { return life; }
     void setLife(int i) { life = i; }
     void loseLife() { life -= 1; }

@@ -13,8 +13,8 @@ class Cherry : public Object, public Collidable
 	bool active = true;
 
 public:
-	Cherry(const class Game& mygame);
-	~Cherry();
+	Cherry(const class Game& game);
+
 	void update() override;
 	void draw() override;
 	void init() override;

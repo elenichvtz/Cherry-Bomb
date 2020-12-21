@@ -1,5 +1,4 @@
 #include "Player.h"
-//#include "config.h"
 #include "Game.h"
 #include "graphics.h"
 
@@ -14,7 +13,7 @@ void Player::update()
 	/*if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
 		graphics::getKeyState(graphics::SCANCODE_SPACE))
 	{
-
+		
 	}*/
 
 	//A or LEFT ARROW to move left
@@ -30,16 +29,16 @@ void Player::update()
 
 	///////////////////////////////// collision check
 	//move up
-	if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP))
+	/*if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP))
 	{
 		pos_y -= speed * graphics::getDeltaTime() / 10.0f;
-	}
+	}*/
 
 	//move down
-	if (graphics::getKeyState(graphics::SCANCODE_S) || graphics::getKeyState(graphics::SCANCODE_DOWN))
+	/*if (graphics::getKeyState(graphics::SCANCODE_S) || graphics::getKeyState(graphics::SCANCODE_DOWN))
 	{
 		pos_y += speed * graphics::getDeltaTime() / 10.0f;
-	}
+	}*/
 	/////////////////////////////////
 
 	//limitations
@@ -63,8 +62,8 @@ void Player::draw()
 		brush.fill_color[1] = 0.6f;
 		brush.fill_color[2] = 0.4f;
 		brush.fill_opacity = 0.5f;
-		Disk hull = getCollisionHull();
-		graphics::drawDisk(hull.cx, hull.cy, hull.radius, brush);
+		//Disk hull = getCollisionHull();
+		//graphics::drawDisk(hull.cx, hull.cy, hull.radius, brush);
 	}
 }
 
@@ -73,11 +72,11 @@ void Player::init()
 }
 
 //will delete later bc the player won't have to collide
-Disk Player::getCollisionHull() const
-{
-	Disk disk;
-	disk.cx = pos_x;
-	disk.cy = pos_y;
-	disk.radius = 50.0f;
-	return disk;
-}
+//Disk Player::getCollisionHull() const
+//{
+//	Disk disk;
+//	disk.cx = pos_x;
+//	disk.cy = pos_y;
+//	disk.radius = 50.0f;
+//	return disk;
+//}

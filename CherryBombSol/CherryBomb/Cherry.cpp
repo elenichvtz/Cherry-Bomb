@@ -21,9 +21,7 @@ void Cherry::draw()
 	brush.texture = std::string(FRUIT_ASSETS_PATH) + "cherry.png";
 	brush.outline_opacity = 0.0f;
 	graphics::drawRect(pos_x, pos_y, size, size, brush);
-	//pairnei to texture alla den emfanizei tin eikona opoia ki an valeis
-	//std::cout << brush.texture;
-	//graphics::resetPose();
+	
 	if (game.getDebugMode())
 	{
 		graphics::Brush brush;
@@ -43,22 +41,15 @@ void Cherry::init()
 	speed = 0.3f;
 	pos_x = CANVAS_WIDTH + 110;
 	pos_y = 100 + 200 * rand0to1();
-	size = 100;
+	size = 60 + 100 * rand0to1();
 	
-	//size = 60 + 100 * rand0to1();
 	//rotation = 360 * rand0to1();
-	//brush.outline_opacity = 0.0f;
 }
 
 Cherry::Cherry(const class Game& game)
 	:Object(game)
 {
 	init();
-}
-
-Cherry::~Cherry()
-{
-	
 }
 
 Disk Cherry::getCollisionHull() const

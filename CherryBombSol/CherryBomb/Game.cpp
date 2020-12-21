@@ -23,12 +23,12 @@ void Game::checkCherry()
 
 bool Game::checkCollision()
 {
-	if (!player || !cherry)
+	if (!shot || !cherry)
 	{
 		return false;
 	}
 
-	Disk d1 = player->getCollisionHull();
+	Disk d1 = shot->getCollisionHull();
 	Disk d2 = cherry->getCollisionHull();
 
 	float dx = d1.cx - d2.cx;
@@ -85,32 +85,6 @@ void Game::draw()
 	else if (game_status == WEAPON) drawWeaponScreen();
 	else if (game_status == GAME) drawGameScreen();
 	else drawEndScreen();
-	/*
-	//UI
-	if (player && debug_mode)
-	{
-		//char pos[40];
-		//sprintf_s(pos, "x: %1.2f, y: %1.2f", cherry->getx(), cherry->gety());
-
-		char lives[10];
-		//dynamically shows lives
-		sprintf_s(lives, "Lives %x", player->getPlayerLives());
-
-		char score[10];
-		//dynamically shows score
-		sprintf_s(score, "Score %x", player->getPlayerScore());
-		//player->updatePlayerScore(2);
-		graphics::Brush brush;
-		brush.fill_color[0] = 0.0f;
-		brush.fill_color[1] = 0.0f;
-		brush.fill_color[2] = 0.0f;
-
-		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 10, 50, score, brush);
-		//graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 10, 20, pos, brush);
-		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 7, 30, lives, brush);
-		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 5, 20, "Press A for left and D for right", brush);
-	}
-	*/
 }
 
 void Game::init()
@@ -125,14 +99,41 @@ Game::Game()
 
 Game::~Game()
 {
-	if (player) {
+	if (player) 
+	{
 		delete player;
 		player = nullptr;
 	}
 
-	if (cherry) {
+	if (cherry) 
+	{
 		delete cherry;
 		cherry = nullptr;
+	}
+
+	if(shot)
+	{
+		delete shot;
+		shot = nullptr;
+	}
+}
+
+void Game::spawnShot()
+{
+	if (!shot)
+	{
+		shot = new Shot(*this);
+		shot->setX(player->getX());
+		shot->setY(player->getY());
+	}
+}
+
+void Game::checkShot()
+{
+	if (shot && !shot->isActive())
+	{
+		delete shot;
+		shot = nullptr;
 	}
 }
 
@@ -176,6 +177,9 @@ void Game::drawGameScreen()
 
 	if (cherry)
 		cherry->draw();
+
+	if (shot)
+		shot->draw();
 
 	//UI/info layer -> could become a separate class
 	if (player)
@@ -261,9 +265,22 @@ void Game::updateGameScreen()
 	if (cherry)
 		cherry->update();
 
+	if (shot)
+		shot->update();
+
+	checkShot();
+
+	//shoot
+	if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
+		graphics::getKeyState(graphics::SCANCODE_SPACE))
+	{
+		spawnShot();
+	}
+
 	if (checkCollision())
 	{
 		//bang!
+		//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
 
 		delete cherry;
 		cherry = nullptr;
