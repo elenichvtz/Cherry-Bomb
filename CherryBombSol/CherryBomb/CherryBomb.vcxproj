@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="Cherry.cpp" />
     <ClCompile Include="Fruit.cpp" />
+    <ClCompile Include="functions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />

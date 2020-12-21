@@ -1,7 +1,7 @@
 #include "graphics.h"
 #include "Game.h"
 #include "config.h"
-#include <iostream>
+//#include <iostream>
 
 void Game::spawnCherry()
 {
@@ -16,49 +16,56 @@ void Game::spawnFruit()
 
 void Game::checkCherry()
 {
-	if (cherry && !cherry->getCherryState())
+	if (cherry && !cherry->isActive())
 	{
 		delete cherry;
 		cherry = nullptr;
 	}
 }
 
+bool Game::checkCollision()
+{
+	if (!player || !cherry)
+	{
+		return false;
+	}
+
+	Disk d1 = player->getCollisionHull();
+	Disk d2 = cherry->getCollisionHull();
+
+	float dx = d1.cx - d2.cx;
+	float dy = d1.cy - d2.cy;
+
+	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
+	{
+		player->loseLife();
+		return true;
+	}
+	else
+		return false;
+}
+
 void Game::update()
 {
-	if (!player_init)
-	{
-		player = new Player(*this);
-		player_init = true;
-	}
-
-	if (player)
-	{
-		player->update();
-	}
-
-	checkCherry();
-
-	spawnCherry();
-
-	if (cherry)
-	{
-		cherry->update();
-	}
+	if (game_status == TITLE) updateTitleScreen();
+	else if (game_status == WEAPON) updateWeaponScreen();
+	else if (game_status == GAME) updateGameScreen();
+	else updateEndScreen();
 }
 
 void Game::draw()
 {
 	//TODO: draw background -> alla boroume apla na to afisoume ena xroma (autos vazei eikona)
-
-	//draw player
-	if (player)
-		player->draw();
-
-	//draw cherry
-	//xreiazetai ena for loop gia ta polla cherries & mia sunartisi tupou drawEnemies pou kanei iterate oli ti lista/sullogi kai antistoixa gia tin update
-	if (cherry)
-		cherry->draw();
-
+	graphics::Brush br;
+	br.texture = std::string(BACKGROUND_PATH) + "background.png";
+	br.outline_opacity = 0.0f;
+	graphics::drawRect(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT, br);
+	
+	if (game_status == TITLE) drawTitleScreen();
+	else if (game_status == WEAPON) drawWeaponScreen();
+	else if (game_status == GAME) drawGameScreen();
+	else drawEndScreen();
+	/*
 	//UI
 	if (player && debug_mode)
 	{
@@ -83,6 +90,7 @@ void Game::draw()
 		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 7, 30, lives, brush);
 		graphics::drawText(CANVAS_WIDTH / 12, CANVAS_HEIGHT / 5, 20, "Press A for left and D for right", brush);
 	}
+	*/
 }
 
 void Game::init()
@@ -97,9 +105,144 @@ Game::Game()
 
 Game::~Game()
 {
-	if (player)
-	{
+	if (player) {
 		delete player;
 		player = nullptr;
 	}
+
+	if (cherry) {
+		delete cherry;
+		cherry = nullptr;
+	}
+}
+
+void Game::drawTitleScreen()
+{
+	graphics::Brush br;
+	br.fill_color[0] = 0.f;
+	br.fill_color[1] = 0.f;
+	br.fill_color[2] = 0.f;
+
+	graphics::drawText(200, 200, 100, "CHERRY BOMB", br);
+
+	float flash = 0.5f + 0.9f * sinf(graphics::getGlobalTime() / 170);
+	br.fill_color[0] += flash;
+	br.fill_color[1] += flash;
+	br.fill_color[2] += flash;
+	graphics::drawText(250, 300, 50, "PRESS SPACE TO START", br);
+
+}
+
+void Game::drawWeaponScreen()
+{
+	graphics::Brush br;
+	br.fill_color[0] = 0.f;
+	br.fill_color[1] = 0.f;
+	br.fill_color[2] = 0.f;
+
+	//char weapon[40];
+	//sprintf_s(weapon, "CHOOSE YOUR WEAPON");
+	graphics::drawText(100, 100, 60, "CHOOSE YOUR WEAPON", br);
+	//TO DO: add weapons and choose player
+	graphics::drawText(100, 150, 30, "PRESS ENTER TO CONTINUE", br);
+
+}
+
+void Game::drawGameScreen()
+{
+	//draw player
+	if (player)
+		player->draw();
+
+	if (cherry)
+		cherry->draw();
+
+	//UI/info layer -> could become a separate class
+	if (player)
+	{
+		//score
+		char score[40];
+		sprintf_s(score, "SCORE %i", player->getScore());
+		graphics::Brush br;
+		br.fill_color[0] = 0.f;
+		br.fill_color[1] = 0.f;
+		br.fill_color[2] = 0.f;
+		graphics::drawText(50, 50, 40, score, br);
+	}
+	//life
+	float life = player ? player->getLife() : 0;
+
+	graphics::Brush br;
+	br.texture = std::string(PLAYER_ASSETS_PATH) + "heart.png";
+	br.fill_opacity = 1.f;
+	br.outline_opacity = 0.f;
+	br.outline_color[0] = 0.f;
+	br.outline_color[1] = 0.f;
+	br.outline_color[2] = 0.f;
+	int x = 180;
+	for (int i = 0; i < life; i++)
+	{
+		graphics::drawRect(CANVAS_WIDTH - x, 30, 30, 30, br);
+		x -= 30;
+	}
+
+}
+
+void Game::drawEndScreen()
+{
+	graphics::Brush br;
+	br.fill_color[0] = 0.f;
+	br.fill_color[1] = 0.f;
+	br.fill_color[2] = 0.f;
+
+	graphics::drawText(280, CANVAS_HEIGHT / 2, 80, "GAME OVER", br);
+}
+
+void Game::updateTitleScreen()
+{
+	if (graphics::getKeyState(graphics::SCANCODE_SPACE))
+	{
+		game_status = WEAPON;
+	}
+}
+
+void Game::updateWeaponScreen()
+{
+	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
+	{
+		game_status = GAME;
+	}
+}
+
+void Game::updateGameScreen()
+{
+	if (!player_initialized && graphics::getGlobalTime() > 1000)
+	{
+		player = new Player(*this);
+		player_initialized = true;
+	}
+
+	if (player)
+		player->update();
+
+	checkCherry();
+	spawnCherry();
+
+	if (cherry)
+		cherry->update();
+
+	if (checkCollision())
+	{
+		//bang!
+
+		delete cherry;
+		cherry = nullptr;
+
+		if (player->getLife() <= 0) game_status = END;
+	}
+}
+
+void Game::updateEndScreen()
+{
+	//maybe nothing here idk
 }

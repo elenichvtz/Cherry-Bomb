@@ -4,30 +4,40 @@
 
 class Game
 {
+	typedef enum { TITLE, WEAPON, GAME, END } status_t;
+	status_t game_status = TITLE;
 	Player* player = nullptr;
 	//variable to check if player has already been initialized
-	bool player_init = false;
+	bool player_initialized = false;
 	bool debug_mode = false;
+	
 	//xreiazetai lista me ta polla cherries kai polla fruits
+	
 	Cherry* cherry = nullptr;
 	//for cherries
 	void spawnCherry();
+	void checkCherry();
+	bool checkCollision();
 	//for the rest of the fruits
 	void spawnFruit();
-	void checkCherry();
+
+	void drawTitleScreen();
+	void drawWeaponScreen();
+	void drawGameScreen();
+	void drawEndScreen();
+
+	void updateTitleScreen();
+	void updateWeaponScreen();
+	void updateGameScreen();
+	void updateEndScreen();
 
 public:
 	void update();
-
 	void draw();
-
 	void init();
-
 	Game();
-
 	~Game();
-
-	void setDebugMode(bool mode) { debug_mode = mode; }
-
-	bool getDebugMode() { return debug_mode; }
+	int getGameMode() { return game_status; }
+	bool getDebugMode() const { return debug_mode; }
+	void setDebugMode(bool d) { debug_mode = d; }
 };

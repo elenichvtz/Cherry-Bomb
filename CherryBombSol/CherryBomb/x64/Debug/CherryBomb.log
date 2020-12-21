@@ -1,4 +1,20 @@
-﻿  Player.cpp
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.h(9,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
-  CherryBomb.vcxproj -> C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb_debug.exe
+﻿  Cherry.cpp
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.cpp(69,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Game.cpp
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(173,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(185,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+  Object.cpp
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+  Player.cpp
+C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+  Generating Code...
+  CherryBomb.vcxproj -> C:\Users\nikim\Desktop\c\CherryBombSol\bin\CherryBomb_debug.exe
