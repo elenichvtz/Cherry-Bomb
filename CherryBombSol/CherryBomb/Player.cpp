@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Game.h"
+#include "Shot.h"
 #include "graphics.h"
 
 Player::Player(const Game& game)
@@ -10,11 +11,12 @@ Player::Player(const Game& game)
 void Player::update()
 {
 	//shoot
-	/*if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
+	if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
 		graphics::getKeyState(graphics::SCANCODE_SPACE))
 	{
-		
-	}*/
+		//checkShot();
+		spawnShot();
+	}
 
 	//A or LEFT ARROW to move left
 	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
@@ -27,23 +29,12 @@ void Player::update()
 		pos_x += speed * graphics::getDeltaTime() / 10.0f;
 	}
 
-	///////////////////////////////// collision check
-	//move up
-	/*if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP))
-	{
-		pos_y -= speed * graphics::getDeltaTime() / 10.0f;
-	}*/
-
-	//move down
-	/*if (graphics::getKeyState(graphics::SCANCODE_S) || graphics::getKeyState(graphics::SCANCODE_DOWN))
-	{
-		pos_y += speed * graphics::getDeltaTime() / 10.0f;
-	}*/
-	/////////////////////////////////
-
 	//limitations
 	if (pos_x < 0) pos_x = 0;
 	if (pos_x > CANVAS_WIDTH) pos_x = CANVAS_WIDTH;
+
+	if (shot)
+		shot->update();
 }
 
 void Player::draw()
@@ -62,21 +53,28 @@ void Player::draw()
 		brush.fill_color[1] = 0.6f;
 		brush.fill_color[2] = 0.4f;
 		brush.fill_opacity = 0.5f;
-		//Disk hull = getCollisionHull();
-		//graphics::drawDisk(hull.cx, hull.cy, hull.radius, brush);
 	}
+
+	if (shot)
+		shot->draw();
 }
 
 void Player::init()
 {
 }
 
-//will delete later bc the player won't have to collide
-//Disk Player::getCollisionHull() const
-//{
-//	Disk disk;
-//	disk.cx = pos_x;
-//	disk.cy = pos_y;
-//	disk.radius = 50.0f;
-//	return disk;
-//}
+void Player::checkShot()
+{
+	if (shot && !shot->isActive())
+	{
+		delete shot;
+		shot = nullptr;
+	}
+}
+
+void Player::spawnShot()
+{
+	shot = new Shot(game);
+	shot->setX(pos_x);
+	shot->setY(pos_y);
+}

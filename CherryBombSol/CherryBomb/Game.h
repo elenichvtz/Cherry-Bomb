@@ -27,8 +27,7 @@ class Game
 
 	//shots
 	Shot* shot = nullptr;
-	void spawnShot();
-	void checkShot();
+	
 
 	bool checkCollision();
 

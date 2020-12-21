@@ -118,25 +118,6 @@ Game::~Game()
 	}
 }
 
-void Game::spawnShot()
-{
-	if (!shot)
-	{
-		shot = new Shot(*this);
-		shot->setX(player->getX());
-		shot->setY(player->getY());
-	}
-}
-
-void Game::checkShot()
-{
-	if (shot && !shot->isActive())
-	{
-		delete shot;
-		shot = nullptr;
-	}
-}
-
 void Game::drawTitleScreen()
 {
 	graphics::Brush br;
@@ -267,15 +248,6 @@ void Game::updateGameScreen()
 
 	if (shot)
 		shot->update();
-
-	checkShot();
-
-	//shoot
-	if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
-		graphics::getKeyState(graphics::SCANCODE_SPACE))
-	{
-		spawnShot();
-	}
 
 	if (checkCollision())
 	{
