@@ -1,6 +1,7 @@
 #pragma once
 #include "graphics.h"
 #include "Object.h"
+#include "Cherry.h"
 #include "Shot.h"
 #include "config.h"
 
@@ -33,4 +34,6 @@ public:
     void checkShot();
 
     void spawnShot();
+
+    bool checkCollision(Cherry* cherry);
 };

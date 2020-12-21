@@ -27,7 +27,6 @@ class Game
 
 	//shots
 	Shot* shot = nullptr;
-	
 
 	bool checkCollision();
 

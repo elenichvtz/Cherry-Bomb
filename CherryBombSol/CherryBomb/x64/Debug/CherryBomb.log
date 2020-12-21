@@ -1,4 +1,12 @@
-﻿  Player.cpp
+﻿  Game.cpp
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(169,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(181,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(200,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Player.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+  Generating Code...
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(36): warning C4715: 'Game::checkCollision': not all control paths return a value
   CherryBomb.vcxproj -> C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb_debug.exe

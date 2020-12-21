@@ -1,6 +1,7 @@
 #include "graphics.h"
 #include "Game.h"
 #include "config.h"
+#include <iostream>
 
 void Game::spawnCherry()
 {
@@ -23,22 +24,12 @@ void Game::checkCherry()
 
 bool Game::checkCollision()
 {
-	if (!shot || !cherry)
+	//den ginetai pote true
+	if (player->checkCollision(cherry))
 	{
-		return false;
-	}
-
-	Disk d1 = shot->getCollisionHull();
-	Disk d2 = cherry->getCollisionHull();
-
-	float dx = d1.cx - d2.cx;
-	float dy = d1.cy - d2.cy;
-
-	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-	{
+		std::cout << "yep";
 		player->loseLife();
 		player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
-		return true;
 	}
 	else
 		return false;
@@ -247,17 +238,19 @@ void Game::updateGameScreen()
 		cherry->update();
 
 	if (shot)
+	{
 		shot->update();
 
-	if (checkCollision())
-	{
-		//bang!
-		//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
+		if (checkCollision())
+		{
+			//bang!
+			//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
 
-		delete cherry;
-		cherry = nullptr;
+			delete cherry;
+			cherry = nullptr;
 
-		if (player->getLife() <= 0) game_status = END;
+			if (player->getLife() <= 0) game_status = END;
+		}
 	}
 }
 

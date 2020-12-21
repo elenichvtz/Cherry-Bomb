@@ -78,3 +78,24 @@ void Player::spawnShot()
 	shot->setX(pos_x);
 	shot->setY(pos_y);
 }
+
+bool Player::checkCollision(Cherry* cherry)
+{
+	if (!shot)
+	{
+		return false;
+	}
+
+	Disk d1 = shot->getCollisionHull();
+	Disk d2 = cherry->getCollisionHull();
+
+	float dx = d1.cx - d2.cx;
+	float dy = d1.cy - d2.cy;
+
+	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
+	{
+		return true;
+	}
+	else
+		return false;
+}
