@@ -3,6 +3,7 @@
 #include "Cherry.h"
 #include "Shot.h"
 #include <list>
+#include <vector>
 
 class Game
 {

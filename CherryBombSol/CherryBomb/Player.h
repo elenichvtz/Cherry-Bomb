@@ -12,6 +12,7 @@ class Player : public Object
 	int score = 0;
 	int life = 5;
     Shot* shot = nullptr;
+    //std::vector<Shot*> shots;
 
 public:
     Player(const class Game& game);

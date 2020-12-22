@@ -1,5 +1,5 @@
 #include "functions.h"
-#include <iostream>
+//#include <iostream>
 
 float rand0to1() {
 	return rand() / (float)RAND_MAX;
@@ -8,6 +8,6 @@ float rand0to1() {
 float rand0or1()
 {
 	float x = rand() % 2;
-	std::cout << "f %f"<<x;
+	//std::cout << "f %f"<<x;
 	return x;
 }

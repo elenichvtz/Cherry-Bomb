@@ -1,7 +1,7 @@
 #include "graphics.h"
 #include "Game.h"
 #include "config.h"
-#include <iostream>
+//#include <iostream>
 
 void Game::spawnCherry()
 {
@@ -27,7 +27,7 @@ bool Game::checkCollision()
 	//den ginetai pote true
 	if (player->checkCollision(cherry))
 	{
-		std::cout << "yep";
+		//std::cout << "yep";
 		player->loseLife();
 		player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
 	}

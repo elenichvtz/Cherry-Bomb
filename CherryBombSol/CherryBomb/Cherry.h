@@ -8,13 +8,12 @@ class Cherry : public Object, public Collidable
 
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT / 2;
 	float size, speed, direction;
-	//float dorection; coming from left or right
 	class graphics::Brush brush;
 	bool active = true;
 
 public:
 	Cherry(const class Game& game);
-
+	~Cherry();
 	void update() override;
 	void draw() override;
 	void init() override;

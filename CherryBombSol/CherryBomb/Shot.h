@@ -1,7 +1,5 @@
 #pragma once
-
 #include "Object.h"
-
 
 class Shot : public Object, public Collidable
 {
@@ -16,7 +14,6 @@ public:
 	void init() override;
 
 	void setX(float x) { pos_x = x; }
-
 	void setY(float y) { pos_y = y; }
 
 	Disk getCollisionHull() const override;

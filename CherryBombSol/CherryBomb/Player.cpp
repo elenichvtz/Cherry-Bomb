@@ -75,6 +75,7 @@ void Player::checkShot()
 void Player::spawnShot()
 {
 	shot = new Shot(game);
+	//shots.push_back(shot);
 	shot->setX(pos_x);
 	shot->setY(pos_y);
 }

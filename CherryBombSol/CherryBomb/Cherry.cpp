@@ -1,9 +1,6 @@
-//#include "graphics.h"
 #include "Cherry.h"
-//#include "config.h"
 #include "functions.h"
 #include "Game.h"
-//#include <iostream>
 
 void Cherry::update()
 {
@@ -14,8 +11,7 @@ void Cherry::update()
 	else
 		pos_x -= speed * graphics::getDeltaTime();
 
-	if (pos_x < -size) active = false;
-	if (pos_x > CANVAS_WIDTH + size) active = false;
+	if (pos_x < -size || pos_x > CANVAS_WIDTH + size) active = false;
 }
 
 void Cherry::draw()
@@ -63,6 +59,10 @@ Cherry::Cherry(const class Game& game)
 	:Object(game)
 {
 	init();
+}
+
+Cherry::~Cherry()
+{
 }
 
 Disk Cherry::getCollisionHull() const
