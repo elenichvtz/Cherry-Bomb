@@ -7,3 +7,5 @@ struct Disk {
 	float cx, cy;
 	float radius;
 };
+
+float rand0or1();

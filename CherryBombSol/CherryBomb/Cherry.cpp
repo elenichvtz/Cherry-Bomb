@@ -9,10 +9,13 @@ void Cherry::update()
 {
 	//rotation += 0.15f * graphics::getDeltaTime();
 	//rotation = fmodf(rotation, 360);
-	pos_x -= speed * graphics::getDeltaTime();
-	//pos_x += speed * graphics::getDeltaTime(); an ekane spawn deksia
+	if(direction==0.0f)
+		pos_x += speed * graphics::getDeltaTime();
+	else
+		pos_x -= speed * graphics::getDeltaTime();
 
 	if (pos_x < -size) active = false;
+	if (pos_x > CANVAS_WIDTH + size) active = false;
 }
 
 void Cherry::draw()
@@ -39,7 +42,17 @@ void Cherry::draw()
 void Cherry::init()
 {
 	speed = 0.3f;
-	pos_x = CANVAS_WIDTH + 110;
+	//if 0 go left, else right
+	if (rand0or1() == 0.0f)
+	{
+		direction = 0.0f;
+		pos_x = -110;
+	}
+	else
+	{
+		direction = 1.0f;
+		pos_x = CANVAS_WIDTH + 110;
+	}
 	pos_y = 100 + 200 * rand0to1();
 	size = 60 + 100 * rand0to1();
 	

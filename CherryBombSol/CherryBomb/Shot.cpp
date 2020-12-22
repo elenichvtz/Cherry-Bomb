@@ -11,6 +11,7 @@ Shot::Shot(const Game& game)
 void Shot::update()
 {
 	pos_y -= speed * graphics::getDeltaTime();
+	if (pos_y < size) active = false;
 }
 
 void Shot::draw()
@@ -35,7 +36,7 @@ void Shot::draw()
 
 void Shot::init()
 {
-	speed = 0.3f;
+	speed = 0.4f;
 	size = 30.0f;
 }
 
