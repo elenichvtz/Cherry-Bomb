@@ -1,8 +1,8 @@
 ﻿  Cherry.cpp
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.cpp(74,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Shot.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.cpp(73,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Player.cpp
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.h(12,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
   Generating Code...

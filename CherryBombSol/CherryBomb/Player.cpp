@@ -94,6 +94,8 @@ bool Player::checkCollision(Cherry* cherry)
 
 	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
 	{
+		delete shot;
+		shot = nullptr;
 		return true;
 	}
 	else
