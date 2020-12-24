@@ -5,9 +5,9 @@ C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.cpp(73,21): war
   Game.cpp
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.h(11,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(164,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(176,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(195,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(158,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(170,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(189,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Main.cpp
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Cherry.h(11,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
 C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'

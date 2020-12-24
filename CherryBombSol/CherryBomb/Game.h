@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
 #include "Cherry.h"
-#include "Shot.h"
 #include <list>
 #include <vector>
 
@@ -25,9 +24,6 @@ class Game
 
 	//for the rest of the fruits
 	void spawnFruit();
-
-	//shots
-	Shot* shot = nullptr;
 
 	bool checkCollision();
 

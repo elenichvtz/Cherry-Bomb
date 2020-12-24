@@ -99,12 +99,6 @@ Game::~Game()
 		delete cherry;
 		cherry = nullptr;
 	}
-
-	if(shot)
-	{
-		delete shot;
-		shot = nullptr;
-	}
 }
 
 void Game::drawTitleScreen()
