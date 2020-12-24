@@ -33,8 +33,11 @@ void Player::update()
 	if (pos_x < 0) pos_x = 0;
 	if (pos_x > CANVAS_WIDTH) pos_x = CANVAS_WIDTH;
 
-	if (shot)
-		shot->update();
+	for (auto i : shots)
+	{
+		if (i)
+			i->update();
+	}
 }
 
 void Player::draw()
@@ -55,50 +58,57 @@ void Player::draw()
 		brush.fill_opacity = 0.5f;
 	}
 
-	if (shot)
-		shot->draw();
+	for (auto i : shots)
+	{
+		if (i)
+			i->draw();
+	}
 }
 
 void Player::init()
 {
 }
 
-void Player::checkShot()
-{
-	if (shot && !shot->isActive())
-	{
-		delete shot;
-		shot = nullptr;
-	}
-}
+//void Player::checkShot()
+//{
+//	if (shot && !shot->isActive())
+//	{
+//		delete shot;
+//		shot = nullptr;
+//	}
+//}
 
 void Player::spawnShot()
 {
-	shot = new Shot(game);
-	//shots.push_back(shot);
+	Shot* shot = new Shot(game);
+	shots.push_back(shot);
 	shot->setX(pos_x);
 	shot->setY(pos_y);
 }
 
 bool Player::checkCollision(Cherry* cherry)
 {
-	if (!shot)
+	//TODO loop gia ola ta shots
+	for (auto i : shots)
 	{
-		return false;
+		if (!i)
+		{
+			return false;
+		}
+
+		Disk d1 = i->getCollisionHull();
+		Disk d2 = cherry->getCollisionHull();
+
+		float dx = d1.cx - d2.cx;
+		float dy = d1.cy - d2.cy;
+
+		if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
+		{
+			delete i;
+			i = nullptr;
+			return true;
+		}
+		else
+			return false;
 	}
-
-	Disk d1 = shot->getCollisionHull();
-	Disk d2 = cherry->getCollisionHull();
-
-	float dx = d1.cx - d2.cx;
-	float dy = d1.cy - d2.cy;
-
-	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-	{
-		delete shot;
-		shot = nullptr;
-		return true;
-	}
-	else
-		return false;
 }

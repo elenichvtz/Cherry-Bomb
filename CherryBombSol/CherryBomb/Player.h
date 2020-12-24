@@ -11,8 +11,8 @@ class Player : public Object
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT - 50;
 	int score = 0;
 	int life = 5;
-    Shot* shot = nullptr;
-    //std::vector<Shot*> shots;
+    //Shot* shot = nullptr;
+    std::vector<Shot*> shots;
 
 public:
     Player(const class Game& game);
@@ -32,7 +32,7 @@ public:
     void setLife(int i) { life = i; }
     void loseLife() { life -= 1; }
 
-    void checkShot();
+    //void checkShot();
 
     void spawnShot();
 
