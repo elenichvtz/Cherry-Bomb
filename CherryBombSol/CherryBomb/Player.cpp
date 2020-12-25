@@ -15,7 +15,7 @@ void Player::update()
 	//if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
 	//	graphics::getKeyState(graphics::SCANCODE_SPACE))
 	//{
-	//	//checkShot();
+	//	checkShot();
 	//	spawnShot();
 	//}
 	
