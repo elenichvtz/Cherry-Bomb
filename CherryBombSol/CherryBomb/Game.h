@@ -14,6 +14,9 @@ class Game
 	bool debug_mode = false;
 	
 	//xreiazetai lista me ta polla cherries kai polla fruits
+
+	typedef enum { FORK, CHOPSTICKS } choice_w;
+	choice_w weapon_choice = FORK;
 	
 	std::list<int> scoreboard;
 
@@ -46,9 +49,11 @@ public:
 	void init();
 	Game();
 	~Game();
-	int getGameMode() { return game_status; }
+	int getGameMode() const { return game_status; }
 	bool getDebugMode() const { return debug_mode; }
 	void setDebugMode(bool d) { debug_mode = d; }
+
+	int getWeaponChoice() const { return weapon_choice; }
 
 	//std::list<int> getScoreboard() { return scoreboard; }
 	//void setScoreboard(std::list<int> s) { scoreboard = s; }

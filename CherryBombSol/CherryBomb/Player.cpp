@@ -43,7 +43,15 @@ void Player::update()
 void Player::draw()
 {
 	graphics::Brush brush;
-	brush.texture = std::string(PLAYER_ASSETS_PATH) + "fork.png";
+	if (game.getWeaponChoice() == 0)
+	{
+		brush.texture = std::string(PLAYER_ASSETS_PATH) + "fork.png";
+	}
+	else
+	{
+		brush.texture = std::string(PLAYER_ASSETS_PATH) + "chopsticks.png";
+	}
+	brush.outline_opacity = 0.0f;
 	brush.outline_opacity = 0.0f;
 
 	//draw fork

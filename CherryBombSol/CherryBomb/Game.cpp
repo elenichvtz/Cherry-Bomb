@@ -129,8 +129,49 @@ void Game::drawWeaponScreen()
 	//sprintf_s(weapon, "CHOOSE YOUR WEAPON");
 	graphics::drawText(100, 100, 60, "CHOOSE YOUR WEAPON", br);
 	//TO DO: add weapons and choose player
-	graphics::drawText(100, 150, 30, "PRESS ENTER TO CONTINUE", br);
+	graphics::drawText(100, 150, 30, "PRESS ENTER TO CHOOSE", br);
 
+	///draw fork
+	graphics::Brush brf;
+	brf.texture = std::string(PLAYER_ASSETS_PATH) + "fork.png";
+	brf.outline_opacity = 0.0f;
+	graphics::drawRect(CANVAS_WIDTH / 3, 300, 140, 140, brf);
+
+	///draw chopsticks
+	graphics::Brush brc;
+	brc.texture = std::string(PLAYER_ASSETS_PATH) + "chopsticks.png";
+	brc.fill_opacity = 1.0f;
+	brc.outline_opacity = 0.0f;
+	graphics::drawRect(2 * CANVAS_WIDTH / 3, 300, 200, 200, brc);
+
+
+	if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
+	{
+		//choose chopsticks
+		weapon_choice = CHOPSTICKS;
+	}
+
+	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
+	{
+		//choose fork
+		weapon_choice = FORK;
+	}
+
+	//draw outline for fork
+	if (weapon_choice == FORK)
+	{
+		brf.fill_opacity = 0.0f;
+		brf.outline_opacity = 1.0f;
+		brf.outline_width = 2.0f;
+		graphics::drawRect(CANVAS_WIDTH / 3, 300, 150, 150, brf);
+	}
+	else //draw outline for chopsticks
+	{
+		brc.fill_opacity = 0.0f;
+		brc.outline_opacity = 1.0f;
+		brc.outline_width = 2.0f;
+		graphics::drawRect(2 * CANVAS_WIDTH / 3, 300, 150, 150, brc);
+	}
 }
 
 void Game::drawGameScreen()
