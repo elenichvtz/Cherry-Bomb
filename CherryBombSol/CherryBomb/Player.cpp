@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Shot.h"
 #include "graphics.h"
+#include <iostream>
 
 Player::Player(const Game& game)
 	:Object(game)
@@ -11,10 +12,16 @@ Player::Player(const Game& game)
 void Player::update()
 {
 	//shoot
-	if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
-		graphics::getKeyState(graphics::SCANCODE_SPACE))
+	//if (graphics::getKeyState(graphics::SCANCODE_W) || graphics::getKeyState(graphics::SCANCODE_UP) ||
+	//	graphics::getKeyState(graphics::SCANCODE_SPACE))
+	//{
+	//	//checkShot();
+	//	spawnShot();
+	//}
+	
+	graphics::getMouseState(mouse);
+	if (mouse.button_left_pressed)
 	{
-		//checkShot();
 		spawnShot();
 	}
 
@@ -35,7 +42,7 @@ void Player::update()
 
 	for (auto i : shots)
 	{
-		if (i)
+		if (i && i->isActive())
 			i->update();
 	}
 }
@@ -68,30 +75,38 @@ void Player::draw()
 
 	for (auto i : shots)
 	{
-		if (i)
+		if (i && i->isActive())
 			i->draw();
 	}
 }
 
 void Player::init()
 {
+	shots.clear();
 }
 
-//void Player::checkShot()
-//{
-//	if (shot && !shot->isActive())
-//	{
-//		delete shot;
-//		shot = nullptr;
-//	}
-//}
+void Player::checkShot()
+{
+	for (auto i : Player::shots)
+	{
+		if (!i->isActive())
+		{
+			delete i;
+			i = nullptr;
+		}
+	}
+}
 
 void Player::spawnShot()
 {
+	//KATHE FORA POU PATAS GIA SHOT DIMIOURGEI POLLES OXI 1
+	//prepei na dimiourgisei 1 shot alla theorei oti epeidi patame polli ora to space, ftiaxnoume polla shots
 	Shot* shot = new Shot(game);
-	shots.push_back(shot);
+	
 	shot->setX(pos_x);
 	shot->setY(pos_y);
+	shots.push_back(shot);
+	std::cout << "shots size %f" << shots.size() << std::endl;
 }
 
 bool Player::checkCollision(Cherry* cherry)

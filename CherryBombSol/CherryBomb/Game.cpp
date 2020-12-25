@@ -1,7 +1,7 @@
 #include "graphics.h"
 #include "Game.h"
 #include "config.h"
-//#include <iostream>
+#include <iostream>
 
 void Game::spawnCherry()
 {

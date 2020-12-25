@@ -1,5 +1,4 @@
 #pragma once
-#include "graphics.h"
 #include "Object.h"
 #include "Cherry.h"
 #include "Shot.h"
@@ -13,7 +12,7 @@ class Player : public Object
 	int life = 5;
     //Shot* shot = nullptr;
     std::vector<Shot*> shots;
-
+    class graphics::MouseState mouse;
 public:
     Player(const class Game& game);
     void update() override;
@@ -32,7 +31,7 @@ public:
     void setLife(int i) { life = i; }
     void loseLife() { life -= 1; }
 
-    //void checkShot();
+    void checkShot();
 
     void spawnShot();
 
