@@ -73,10 +73,13 @@ void Player::draw()
 		brush.fill_opacity = 0.5f;
 	}
 
-	for (auto i : shots)
+	if (shots.size() > 0)
 	{
-		if (i && i->isActive())
-			i->draw();
+		for (auto i : shots)
+		{
+			if (i && i->isActive())
+				i->draw();
+		}
 	}
 }
 
@@ -99,39 +102,40 @@ void Player::checkShot()
 
 void Player::spawnShot()
 {
-	//KATHE FORA POU PATAS GIA SHOT DIMIOURGEI POLLES OXI 1
-	//prepei na dimiourgisei 1 shot alla theorei oti epeidi patame polli ora to space, ftiaxnoume polla shots
 	Shot* shot = new Shot(game);
 	
 	shot->setX(pos_x);
 	shot->setY(pos_y);
 	shots.push_back(shot);
-	std::cout << "shots size %f" << shots.size() << std::endl;
+	std::cout << "shots size: %f" << shots.size() << std::endl;
 }
 
 bool Player::checkCollision(Cherry* cherry)
 {
 	//TODO loop gia ola ta shots
-	for (auto i : shots)
+	if (shots.size() > 0)
 	{
-		if (!i)
+		for (auto i : shots)
 		{
-			return false;
+			if (!i)
+			{
+				std::cout << "collision false" << std::endl;
+				return false;
+			}
+
+			if (i->checkCollision(cherry))
+			{
+				std::cout << "collision true" << std::endl;
+				delete i;
+				i = nullptr;
+				return true;
+			}
+			else
+			{
+				//bainei sunexeia edo -> to collision den einai pote true
+				std::cout << "collision false2" << std::endl;
+				return false;
+			}
 		}
-
-		Disk d1 = i->getCollisionHull();
-		Disk d2 = cherry->getCollisionHull();
-
-		float dx = d1.cx - d2.cx;
-		float dy = d1.cy - d2.cy;
-
-		if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-		{
-			delete i;
-			i = nullptr;
-			return true;
-		}
-		else
-			return false;
 	}
 }

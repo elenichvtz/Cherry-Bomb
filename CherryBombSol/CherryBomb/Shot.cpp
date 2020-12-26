@@ -48,3 +48,19 @@ Disk Shot::getCollisionHull() const
 	disk.radius = size;
 	return disk;
 }
+
+bool Shot::checkCollision(Cherry* cherry)
+{
+	Disk d1 = getCollisionHull();
+	Disk d2 = cherry->getCollisionHull();
+
+	float dx = d1.cx - d2.cx;
+	float dy = d1.cy - d2.cy;
+
+	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
+	{
+		return true;
+	}
+	else
+		return false;
+}

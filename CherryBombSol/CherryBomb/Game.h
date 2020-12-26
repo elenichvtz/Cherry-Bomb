@@ -12,19 +12,22 @@ class Game
 	//variable to check if player has already been initialized
 	bool player_initialized = false;
 	bool debug_mode = false;
-	
-	//xreiazetai lista me ta polla cherries kai polla fruits
 
 	typedef enum { FORK, CHOPSTICKS } choice_w;
 	choice_w weapon_choice = FORK;
 	
 	std::list<int> scoreboard;
 
-	Cherry* cherry = nullptr;
 	//for cherries
+	std::vector<Cherry*> cherries;
 	void spawnCherry();
 	void checkCherry();
 
+	//cherry spawn time
+	float cherrySpawnInterval = 1000.0f;
+	float currentSpawnTime = 0;
+
+	//xreiazetai lista me ta polla fruits
 	//for the rest of the fruits
 	void spawnFruit();
 

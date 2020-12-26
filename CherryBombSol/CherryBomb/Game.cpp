@@ -5,32 +5,43 @@
 
 void Game::spawnCherry()
 {
-	if (!cherry)
-		cherry = new Cherry(*this);
+	/*if (!cherry)
+		cherry = new Cherry(*this);*/
+
+	currentSpawnTime += graphics::getDeltaTime();
+	if (currentSpawnTime >= cherrySpawnInterval)
+	{
+		Cherry* cherry = new Cherry(*this);
+		cherries.push_back(cherry);
+		currentSpawnTime = 0;
+	}
 }
 
 void Game::spawnFruit()
 {
 }
 
-void Game::checkCherry()
-{
-	if (cherry && !cherry->isActive())
-	{
-		delete cherry;
-		cherry = nullptr;
-	}
-}
+//void Game::checkCherry()
+//{
+//	if (cherry && !cherry->isActive())
+//	{
+//		delete cherry;
+//		cherry = nullptr;
+//	}
+//}
 
 bool Game::checkCollision()
 {
-	if (player->checkCollision(cherry))
+	for (auto i : cherries)
 	{
-		player->loseLife();
-		player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
+		if (player->checkCollision(i))
+		{
+			player->loseLife();
+			player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
+		}
+		else
+			return false;
 	}
-	else
-		return false;
 }
 
 void Game::resetPlayer() {
@@ -94,11 +105,11 @@ Game::~Game()
 		player = nullptr;
 	}
 
-	if (cherry) 
+	/*if (cherry) 
 	{
 		delete cherry;
 		cherry = nullptr;
-	}
+	}*/
 }
 
 void Game::drawTitleScreen()
@@ -180,8 +191,8 @@ void Game::drawGameScreen()
 	if (player)
 		player->draw();
 
-	if (cherry)
-		cherry->draw();
+	for(auto i :cherries)
+		i->draw();
 
 	//UI/info layer -> could become a separate class
 	if (player)
@@ -261,23 +272,26 @@ void Game::updateGameScreen()
 	if (player)
 	{
 		player->update();
-		if (checkCollision())
+		for (auto i : cherries)
 		{
-			//bang!
-			//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
+			if (checkCollision())
+			{
+				//bang!
+				//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
 
-			delete cherry;
-			cherry = nullptr;
+				delete i;
+				i = nullptr;
 
-			if (player->getLife() <= 0) game_status = END;
+				if (player->getLife() <= 0) game_status = END;
+			}
 		}
 	}
 
-	checkCherry();
+	//checkCherry();
 	spawnCherry();
 
-	if (cherry)
-		cherry->update();
+	for(auto i :cherries)
+		i->update();
 }
 
 void Game::updateEndScreen()

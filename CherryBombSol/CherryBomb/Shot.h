@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Cherry.h"
 
 class Shot : public Object, public Collidable
 {
@@ -19,4 +20,6 @@ public:
 	Disk getCollisionHull() const override;
 
 	bool isActive() { return active; }
+
+	bool checkCollision(Cherry* cherry);
 };
