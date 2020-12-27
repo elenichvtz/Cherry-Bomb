@@ -272,26 +272,25 @@ void Game::updateGameScreen()
 	if (player)
 	{
 		player->update();
-		for (auto i : cherries)
-		{
-			if (checkCollision())
-			{
-				//bang!
-				//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
-
-				delete i;
-				i = nullptr;
-
-				if (player->getLife() <= 0) game_status = END;
-			}
-		}
 	}
 
 	//checkCherry();
 	spawnCherry();
 
-	for(auto i :cherries)
+	for (auto i : cherries)
+	{
 		i->update();
+		if (checkCollision())
+		{
+			//bang!
+			//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
+
+			delete i;
+			i = nullptr;
+
+			if (player->getLife() <= 0) game_status = END;
+		}
+	}
 }
 
 void Game::updateEndScreen()
