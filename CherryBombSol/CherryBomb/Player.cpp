@@ -1,6 +1,6 @@
 #include "Player.h"
-#include "Game.h"
-#include "Shot.h"
+//#include "Game.h"
+//#include "Shot.h"
 #include "graphics.h"
 #include <iostream>
 
@@ -19,11 +19,11 @@ void Player::update()
 	//	spawnShot();
 	//}
 	
-	graphics::getMouseState(mouse);
+	/*graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
 	{
 		spawnShot();
-	}
+	}*/
 
 	//A or LEFT ARROW to move left
 	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
@@ -40,11 +40,11 @@ void Player::update()
 	if (pos_x < 0) pos_x = 0;
 	if (pos_x > CANVAS_WIDTH) pos_x = CANVAS_WIDTH;
 
-	for (auto i : shots)
+	/*for (auto i : shots)
 	{
 		if (i && i->isActive())
 			i->update();
-	}
+	}*/
 }
 
 void Player::draw()
@@ -73,22 +73,22 @@ void Player::draw()
 		brush.fill_opacity = 0.5f;
 	}
 
-	if (shots.size() > 0)
+	/*if (shots.size() > 0)
 	{
 		for (auto i : shots)
 		{
 			if (i && i->isActive())
 				i->draw();
 		}
-	}
+	}*/
 }
 
 void Player::init()
 {
-	shots.clear();
+	//shots.clear();
 }
 
-void Player::checkShot()
+/*void Player::checkShot()
 {
 	for (auto i : Player::shots)
 	{
@@ -138,4 +138,4 @@ bool Player::checkCollision(Cherry* cherry)
 			}
 		}
 	}
-}
+}*/

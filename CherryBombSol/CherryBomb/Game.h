@@ -8,7 +8,7 @@ class Game
 {
 	typedef enum { TITLE, WEAPON, GAME, END } status_t;
 	status_t game_status = TITLE;
-	Player* player = nullptr;
+	class Player* player;
 	//variable to check if player has already been initialized
 	bool player_initialized = false;
 	bool debug_mode = false;
@@ -20,8 +20,12 @@ class Game
 
 	//for cherries
 	std::vector<Cherry*> cherries;
+	std::vector<Shot*> shots;
+
 	void spawnCherry();
-	void checkCherry();
+	//void checkCherry();
+
+	class graphics::MouseState mouse;
 
 	//cherry spawn time
 	float cherrySpawnInterval = 1000.0f;
@@ -30,6 +34,9 @@ class Game
 	//xreiazetai lista me ta polla fruits
 	//for the rest of the fruits
 	void spawnFruit();
+
+	void checkShot(); /////////
+	void spawnShot(); /////////
 
 	bool checkCollision();
 
@@ -52,6 +59,10 @@ public:
 	void init();
 	Game();
 	~Game();
+
+	//std::vector<Cherry*> getCherries() { return cherries; }
+	//std::vector<Shot*> getShots() { return shots; }
+
 	int getGameMode() const { return game_status; }
 	bool getDebugMode() const { return debug_mode; }
 	void setDebugMode(bool d) { debug_mode = d; }

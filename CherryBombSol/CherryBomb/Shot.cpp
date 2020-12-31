@@ -49,7 +49,7 @@ Disk Shot::getCollisionHull() const
 	return disk;
 }
 
-bool Shot::checkCollision(Cherry* cherry)
+/*bool Shot::checkCollision(Cherry* cherry)
 {
 	Disk d1 = getCollisionHull();
 	Disk d2 = cherry->getCollisionHull();
@@ -63,4 +63,4 @@ bool Shot::checkCollision(Cherry* cherry)
 	}
 	else
 		return false;
-}
+}*/

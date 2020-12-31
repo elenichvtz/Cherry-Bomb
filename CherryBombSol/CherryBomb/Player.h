@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Cherry.h"
 #include "Shot.h"
+#include "Game.h"
 #include "config.h"
 
 class Player : public Object
@@ -11,8 +12,8 @@ class Player : public Object
 	int score = 0;
 	int life = 5;
     //Shot* shot = nullptr;
-    std::vector<Shot*> shots;
-    class graphics::MouseState mouse;
+    //std::vector<Shot*> shots;
+    //class graphics::MouseState mouse;
 public:
     Player(const class Game& game);
     void update() override;
@@ -31,9 +32,9 @@ public:
     void setLife(int i) { life = i; }
     void loseLife() { life -= 1; }
 
-    void checkShot();
+    //void checkShot();
 
-    void spawnShot();
+    //void spawnShot();
 
-    bool checkCollision(Cherry* cherry);
+    //bool checkCollision(Cherry* cherry);
 };

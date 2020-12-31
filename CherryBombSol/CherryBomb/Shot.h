@@ -21,5 +21,5 @@ public:
 
 	bool isActive() { return active; }
 
-	bool checkCollision(Cherry* cherry);
+	//bool checkCollision(Cherry* cherry);
 };
