@@ -1,6 +1,8 @@
 #pragma once
+#include "graphics.h"
 #include "Player.h"
 #include "Cherry.h"
+#include "Fruit.h"
 #include <list>
 #include <vector>
 
@@ -20,26 +22,38 @@ class Game
 
 	//for cherries
 	std::vector<Cherry*> cherries;
-	std::vector<Shot*> shots;
-
 	void spawnCherry();
 	//void checkCherry();
 
-	class graphics::MouseState mouse;
-
 	//cherry spawn time
-	float cherrySpawnInterval = 1000.0f;
-	float currentSpawnTime = 0;
+	float cherrySpawnInterval = 2000.0f;
+	float cherrycurrentSpawnTime = 0;
+
+	//for shots
+	std::vector<Shot*> shots;
+	void checkShot();
+
+	class graphics::MouseState mouse;
+	void spawnShot();
 
 	//xreiazetai lista me ta polla fruits
 	//for the rest of the fruits
+	std::vector<Fruit*> fruits;
 	void spawnFruit();
 
-	void checkShot(); /////////
-	void spawnShot(); /////////
+	//fruit spawn time
+	float fruitSpawnInterval = 800.0f;
+	float fruitcurrentSpawnTime = 0;
 
+	//shot-cherry collision
 	bool checkCollision(Shot* shot, Cherry* cherry);
-	void checkTotalCollision();
+
+	//shot-fruit collision
+	bool checkCollision(Shot* shot, Fruit* fruit);
+
+	void checkTotalCherryCollision();
+
+	void checkTotalFruitCollision();
 
 	void updateScoreboard();
 	void resetPlayer();
