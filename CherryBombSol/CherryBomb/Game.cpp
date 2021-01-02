@@ -236,7 +236,7 @@ void Game::drawTitleScreen()
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
-	graphics::drawText(250, 300, 50, "PRESS SPACE TO START", br);
+	graphics::drawText(250, 300, 50, "CLICK HERE TO PLAY", br);
 }
 
 void Game::drawWeaponScreen()
@@ -248,7 +248,7 @@ void Game::drawWeaponScreen()
 
 	graphics::drawText(100, 100, 60, "CHOOSE YOUR WEAPON", br);
 	//TO DO: add weapons and choose player
-	graphics::drawText(100, 150, 30, "PRESS ENTER TO CHOOSE", br);
+	//graphics::drawText(100, 150, 30, "PRESS ENTER TO CHOOSE", br);
 
 	///draw fork
 	graphics::Brush brf;
@@ -263,17 +263,22 @@ void Game::drawWeaponScreen()
 	brc.outline_opacity = 0.0f;
 	graphics::drawRect(2 * CANVAS_WIDTH / 3, 300, 200, 200, brc);
 
-
-	if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
-	{
-		//choose chopsticks
-		weapon_choice = CHOPSTICKS;
-	}
-
-	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
+	//if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
+	graphics::getMouseState(mouse);
+	if (mouse.cur_pos_x >= CANVAS_WIDTH/3 - 70 && mouse.cur_pos_x <= CANVAS_WIDTH / 3 + 70 && 
+		mouse.cur_pos_y >= 300 - 70 && mouse.cur_pos_y <= 300 + 70)
 	{
 		//choose fork
 		weapon_choice = FORK;
+	}
+
+	//if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
+	graphics::getMouseState(mouse);
+	if (mouse.cur_pos_x >= 2 * CANVAS_WIDTH / 3 - 100 && mouse.cur_pos_x <= 2*CANVAS_WIDTH/3 + 100 &&
+		mouse.cur_pos_y >= 300 - 100 && mouse.cur_pos_y <= 300 + 100)
+	{
+		//choose chopsticks
+		weapon_choice = CHOPSTICKS;
 	}
 
 	//draw outline for fork
@@ -346,7 +351,7 @@ void Game::drawEndScreen()
 	br.fill_color[2] = 1.0f;
 
 	graphics::drawText(280, 100, 80, "GAME OVER", br);
-	graphics::drawText(300, 150, 30, "PRESS ENTER TO PLAY AGAIN", br);
+	graphics::drawText(300, 150, 30, "CLICK ANYWHERE TO PLAY AGAIN", br);
 	graphics::drawText(350, 250, 30, "SCOREBOARD", br);
 
 	int y = 300;
@@ -360,7 +365,9 @@ void Game::drawEndScreen()
 
 void Game::updateTitleScreen()
 {
-	if (graphics::getKeyState(graphics::SCANCODE_SPACE))
+	graphics::getMouseState(mouse);
+	if (mouse.cur_pos_x >= 250 && mouse.cur_pos_x <= 700 &&
+		mouse.cur_pos_y >= 300 - 50 && mouse.cur_pos_y <=300 && mouse.button_left_pressed)
 	{
 		game_status = WEAPON;
 	}
@@ -368,7 +375,8 @@ void Game::updateTitleScreen()
 
 void Game::updateWeaponScreen()
 {
-	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
+	graphics::getMouseState(mouse);
+	if (mouse.button_left_pressed)
 	{
 		game_status = GAME;
 	}
@@ -426,7 +434,8 @@ void Game::updateGameScreen()
 
 void Game::updateEndScreen()
 {
-	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
+	graphics::getMouseState(mouse);
+	if (mouse.button_left_pressed)
 	{
 		resetPlayer();
 		game_status = GAME;
