@@ -5,9 +5,6 @@
 
 void Game::spawnCherry()
 {
-	/*if (!cherry)
-		cherry = new Cherry(*this);*/
-
 	currentSpawnTime += graphics::getDeltaTime();
 	if (currentSpawnTime >= cherrySpawnInterval)
 	{
@@ -52,47 +49,24 @@ void Game::spawnShot()
 	std::cout << "shots size: " << shots.size() << std::endl;
 }
 
-/*bool Game::checkCollision()
-{
-	for (auto i : cherries)
-	{
-		if (player->checkCollision(i))
-		{
-			player->loseLife();
-			player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
-		}
-		else
-			return false;
-	}
-}*/
-
-bool Game::checkCollision()
+bool Game::checkCollision(Shot* shot, Cherry* cherry)
 {
 	if (shots.empty() || cherries.empty())
 	{
-		//std::cout << "first loop" << std::endl;
 		return false;
 	}
+	Disk d1 = shot->getCollisionHull();
+	Disk d2 = cherry->getCollisionHull();
 
-	for (auto s : shots)
+	float dx = d1.cx - d2.cx;
+	float dy = d1.cy - d2.cy;
+
+	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
 	{
-		for (auto c : cherries)
-		{
-
-			Disk d1 = s->getCollisionHull();
-			Disk d2 = c->getCollisionHull();
-
-			float dx = d1.cx - d2.cx;
-			float dy = d1.cy - d2.cy;
-
-			if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-			{
-				return true;
-			}
-			else
-				return false;
-		}
+		return true;
 	}
+	else
+		return false;
 }
 
 void Game::resetPlayer() {
@@ -158,10 +132,10 @@ Game::~Game()
 		player = nullptr;
 	}
 
-	/*if (cherry) 
+	/*if (cherries) 
 	{
-		delete cherry;
-		cherry = nullptr;
+		delete cherries;
+		cherries = nullptr;
 	}*/
 }
 
@@ -179,7 +153,6 @@ void Game::drawTitleScreen()
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
 	graphics::drawText(250, 300, 50, "PRESS SPACE TO START", br);
-
 }
 
 void Game::drawWeaponScreen()
@@ -189,8 +162,6 @@ void Game::drawWeaponScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	//char weapon[40];
-	//sprintf_s(weapon, "CHOOSE YOUR WEAPON");
 	graphics::drawText(100, 100, 60, "CHOOSE YOUR WEAPON", br);
 	//TO DO: add weapons and choose player
 	graphics::drawText(100, 150, 30, "PRESS ENTER TO CHOOSE", br);
@@ -278,7 +249,6 @@ void Game::drawGameScreen()
 		graphics::drawRect(CANVAS_WIDTH - x, 30, 40, 40, br);
 		x -= 30;
 	}
-
 }
 
 void Game::drawEndScreen()
@@ -333,29 +303,11 @@ void Game::updateGameScreen()
 	//checkCherry();
 	spawnCherry();
 
-	//old
-	/*for (auto i : cherries)
-	{
-		i->update();
-		if (checkCollision())
-		{
-			//bang!
-			//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
-
-			delete i;
-			i = nullptr;
-
-			if (player->getLife() <= 0) game_status = END;
-		}
-	}*/
-
-	//new
 	graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
 	{
 		spawnShot();
 	}
-
 
 	if (!cherries.empty())
 	{
@@ -363,23 +315,26 @@ void Game::updateGameScreen()
 			c->update();
 		}
 	}
-	//std::cout << "before s-> update" << std::endl;
+
 	if (!shots.empty())
 	{
 		for (auto s : shots) {
 			s->update();
 		}
 	}
-	std::cout << "after s-> update" << std::endl;
-	//for (auto c : cherries) {
-	for (size_t c = 0; c < cherries.size(); c++) {
-		//for (auto s : shots) {
-		std::cout << "1st loop" << std::endl;
-		for (size_t s = 0; s < shots.size(); s++) {
-			std::cout << "2nd loop" << std::endl;
-			if (checkCollision())
+	//std::cout << "after s-> update" << std::endl;
+
+	for (size_t s = 0; s < shots.size(); s++) {
+		//std::cout << "1st loop" << std::endl;
+		for (size_t c = 0; c < cherries.size(); c++) {
+			//std::cout << "2nd loop" << std::endl;
+			if (checkCollision(shots[s],cherries[c]))
 			{
 				std::cout << "collision!!" << std::endl;
+
+				//bang!
+				//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
+
 				cherries.erase(cherries.begin() + c);
 				shots.erase(shots.begin() + s);
 				//delete c;
@@ -390,8 +345,8 @@ void Game::updateGameScreen()
 				player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
 				std::cout << "lost a life!" << std::endl;
 				if (player->getLife() <= 0) game_status = END;
+				break;
 			}
-			break;
 		}
 	}
 }
