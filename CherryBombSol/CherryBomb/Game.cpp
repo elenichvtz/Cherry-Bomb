@@ -69,6 +69,35 @@ bool Game::checkCollision(Shot* shot, Cherry* cherry)
 		return false;
 }
 
+void Game::checkTotalCollision()
+{
+	for (size_t s = 0; s < shots.size(); s++) {
+		//std::cout << "1st loop" << std::endl;
+		for (size_t c = 0; c < cherries.size(); c++) {
+			//std::cout << "2nd loop" << std::endl;
+			if (checkCollision(shots[s], cherries[c]))
+			{
+				std::cout << "collision!!" << std::endl;
+
+				//bang!
+				//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
+
+				cherries.erase(cherries.begin() + c);
+				shots.erase(shots.begin() + s);
+				//delete c;
+				//c = nullptr;
+				//delete s;
+				//s = nullptr;
+				player->loseLife();
+				player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
+				std::cout << "lost a life!" << std::endl;
+				if (player->getLife() <= 0) game_status = END;
+				break;
+			}
+		}
+	}
+}
+
 void Game::resetPlayer() {
 	if (player) {
 		updateScoreboard(); //TO DO:: otan paizeis prwth fora den krataei to score gia kapoio logo,
@@ -322,33 +351,8 @@ void Game::updateGameScreen()
 			s->update();
 		}
 	}
-	//std::cout << "after s-> update" << std::endl;
 
-	for (size_t s = 0; s < shots.size(); s++) {
-		//std::cout << "1st loop" << std::endl;
-		for (size_t c = 0; c < cherries.size(); c++) {
-			//std::cout << "2nd loop" << std::endl;
-			if (checkCollision(shots[s],cherries[c]))
-			{
-				std::cout << "collision!!" << std::endl;
-
-				//bang!
-				//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
-
-				cherries.erase(cherries.begin() + c);
-				shots.erase(shots.begin() + s);
-				//delete c;
-				//c = nullptr;
-				//delete s;
-				//s = nullptr;
-				player->loseLife();
-				player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
-				std::cout << "lost a life!" << std::endl;
-				if (player->getLife() <= 0) game_status = END;
-				break;
-			}
-		}
-	}
+	checkTotalCollision();
 }
 
 void Game::updateEndScreen()

@@ -39,6 +39,7 @@ class Game
 	void spawnShot(); /////////
 
 	bool checkCollision(Shot* shot, Cherry* cherry);
+	void checkTotalCollision();
 
 	void updateScoreboard();
 	void resetPlayer();
