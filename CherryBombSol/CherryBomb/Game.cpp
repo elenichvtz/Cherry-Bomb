@@ -64,22 +64,45 @@ void Game::spawnShot()
 
 bool Game::checkCollision(Shot* shot, Fruit* fruit)
 {
-	if (shots.empty() || fruits.empty())
+	//if fruit is cherry
+	if (fruit->getImage() == 0.03f)
 	{
-		return false;
-	}
-	Disk d1 = shot->getCollisionHull();
-	Disk d2 = fruit->getCollisionHull();
+		if (shots.empty() || cherries.empty())
+		{
+			return false;
+		}
+		Disk d1 = shot->getCollisionHull();
+		Disk d2 = fruit->getCollisionHull();
 
-	float dx = d1.cx - d2.cx;
-	float dy = d1.cy - d2.cy;
+		float dx = d1.cx - d2.cx;
+		float dy = d1.cy - d2.cy;
 
-	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-	{
-		return true;
+		if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
+		{
+			return true;
+		}
+		else
+			return false;
 	}
 	else
-		return false;
+	{
+		if (shots.empty() || fruits.empty())
+		{
+			return false;
+		}
+		Disk d1 = shot->getCollisionHull();
+		Disk d2 = fruit->getCollisionHull();
+
+		float dx = d1.cx - d2.cx;
+		float dy = d1.cy - d2.cy;
+
+		if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
 }
 
 void Game::checkTotalCherryCollision()
