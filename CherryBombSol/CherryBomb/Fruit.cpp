@@ -42,7 +42,7 @@ void Fruit::draw()
 	}
 	else if (image == 3.0f)
 	{
-		brush.texture = std::string(FRUIT_ASSETS_PATH) + "lemon.png";
+		brush.texture = std::string(FRUIT_ASSETS_PATH) + "cherry.png";
 	}
 
 	brush.outline_opacity = 0.0f;
@@ -91,4 +91,12 @@ Disk Fruit::getCollisionHull() const
 	disk.cy = pos_y;
 	disk.radius = size / 3.3;
 	return disk;
+}
+
+float Fruit::fruitScore()
+{
+	if (size < 110.0f)
+		return 50;
+	else
+		return 25;
 }

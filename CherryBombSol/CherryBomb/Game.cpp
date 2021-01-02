@@ -2,16 +2,16 @@
 #include "config.h"
 #include <iostream>
 
-void Game::spawnCherry()
-{
-	cherrycurrentSpawnTime += graphics::getDeltaTime();
-	if (cherrycurrentSpawnTime >= cherrySpawnInterval)
-	{
-		Cherry* cherry = new Cherry(*this);
-		cherries.push_back(cherry);
-		cherrycurrentSpawnTime = 0;
-	}
-}
+//void Game::spawnCherry()
+//{
+//	cherrycurrentSpawnTime += graphics::getDeltaTime();
+//	if (cherrycurrentSpawnTime >= cherrySpawnInterval)
+//	{
+//		Cherry* cherry = new Cherry(*this);
+//		cherries.push_back(cherry);
+//		cherrycurrentSpawnTime = 0;
+//	}
+//}
 
 void Game::spawnFruit()
 {
@@ -19,7 +19,14 @@ void Game::spawnFruit()
 	if (fruitcurrentSpawnTime >= fruitSpawnInterval)
 	{
 		Fruit* fruit = new Fruit(*this);
-		fruits.push_back(fruit);
+		if (fruit->getImage() == 3.0f)
+		{
+			cherries.push_back(fruit);
+		}
+		else
+		{
+			fruits.push_back(fruit);
+		}
 		fruitcurrentSpawnTime = 0;
 	}
 }
@@ -55,26 +62,6 @@ void Game::spawnShot()
 	std::cout << "shots size: " << shots.size() << std::endl;
 }
 
-bool Game::checkCollision(Shot* shot, Cherry* cherry)
-{
-	if (shots.empty() || cherries.empty())
-	{
-		return false;
-	}
-	Disk d1 = shot->getCollisionHull();
-	Disk d2 = cherry->getCollisionHull();
-
-	float dx = d1.cx - d2.cx;
-	float dy = d1.cy - d2.cy;
-
-	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-	{
-		return true;
-	}
-	else
-		return false;
-}
-
 bool Game::checkCollision(Shot* shot, Fruit* fruit)
 {
 	if (shots.empty() || fruits.empty())
@@ -97,10 +84,10 @@ bool Game::checkCollision(Shot* shot, Fruit* fruit)
 
 void Game::checkTotalCherryCollision()
 {
-	for (size_t s = 0; s < shots.size(); s++) {
-		//std::cout << "1st loop" << std::endl;
-		for (size_t c = 0; c < cherries.size(); c++) {
-			//std::cout << "2nd loop" << std::endl;
+	for (size_t s = 0; s < shots.size(); s++) 
+	{
+		for (size_t c = 0; c < cherries.size(); c++) 
+		{
 			if (checkCollision(shots[s], cherries[c]))
 			{
 				std::cout << "cherry collision!!" << std::endl;
@@ -110,12 +97,8 @@ void Game::checkTotalCherryCollision()
 
 				cherries.erase(cherries.begin() + c);
 				shots.erase(shots.begin() + s);
-				//delete c;
-				//c = nullptr;
-				//delete s;
-				//s = nullptr;
 				player->loseLife();
-				//player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
+				
 				std::cout << "lost a life!" << std::endl;
 				if (player->getLife() <= 0) game_status = END;
 				break;
@@ -126,10 +109,10 @@ void Game::checkTotalCherryCollision()
 
 void Game::checkTotalFruitCollision()
 {
-	for (size_t s = 0; s < shots.size(); s++) {
-		//std::cout << "1st loop" << std::endl;
-		for (size_t f = 0; f < fruits.size(); f++) {
-			//std::cout << "2nd loop" << std::endl;
+	for (size_t s = 0; s < shots.size(); s++) 
+	{
+		for (size_t f = 0; f < fruits.size(); f++)
+		{
 			if (checkCollision(shots[s], fruits[f]))
 			{
 				std::cout << "fruit collision!!" << std::endl;
@@ -139,14 +122,8 @@ void Game::checkTotalFruitCollision()
 
 				fruits.erase(fruits.begin() + f);
 				shots.erase(shots.begin() + s);
-				//delete c;
-				//c = nullptr;
-				//delete s;
-				//s = nullptr;
-				//player->loseLife();
-				player->incrementScore(); //just for debugging purposes, the score won't increment when u hit a cherry
-				//std::cout << "lost a life!" << std::endl;
-				//if (player->getLife() <= 0) game_status = END;
+				
+				player->incrementScore(fruits[f]->fruitScore());
 				break;
 			}
 		}
@@ -394,9 +371,6 @@ void Game::updateGameScreen()
 	{
 		player->update();
 	}
-
-	//checkCherry();
-	spawnCherry();
 
 	spawnFruit();
 

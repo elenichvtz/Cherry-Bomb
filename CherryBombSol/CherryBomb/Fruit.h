@@ -18,4 +18,8 @@ public:
 	void init() override;
 	bool isActive() { return active; }
 	Disk getCollisionHull() const override;
+
+	float getImage() { return image; }
+
+	float fruitScore();
 };
