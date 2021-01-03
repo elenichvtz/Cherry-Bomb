@@ -53,6 +53,8 @@ class Game
 	void drawGameScreen();
 	void drawEndScreen();
 
+	void printScoreboard();
+
 	void updateTitleScreen();
 	void updateWeaponScreen();
 	void updateGameScreen();

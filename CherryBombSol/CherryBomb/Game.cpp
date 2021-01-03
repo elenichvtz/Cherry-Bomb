@@ -94,10 +94,18 @@ void Game::checkTotalCherryCollision()
 				std::cout << "cherry collision!!" << std::endl;
 
 				//bang!
-				//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
+				graphics::playSound(std::string(AUDIO_ASSETS_PATH) + "explosion.wav", 0.4f , false);
+
+				//////
+				//graphics::Brush br;
+				//br.texture = std::string(FRUIT_ASSETS_PATH) + "boom.png";
+				//br.outline_opacity = 0.0f;
+				//graphics::drawRect(cherries[c]->getX(), cherries[c]->getY(), cherries[c]->getSize(), cherries[c]->getSize(), br);
+				////////
 
 				cherries.erase(cherries.begin() + c);
 				shots.erase(shots.begin() + s);
+
 				player->loseLife();
 				
 				std::cout << "lost a life!" << std::endl;
@@ -118,13 +126,12 @@ void Game::checkTotalFruitCollision()
 			{
 				std::cout << "fruit collision!!" << std::endl;
 
-				//bang!
-				//graphics::playSound(std::string(AUDIO_ASSETS_PATH) + " ", 0.4f , false);
+				player->incrementScore(fruits[f]->fruitScore());
+				//player->incrementScore(50);
 
 				fruits.erase(fruits.begin() + f);
 				shots.erase(shots.begin() + s);
-				
-				player->incrementScore(fruits[f]->fruitScore());
+			
 				break;
 			}
 		}
@@ -133,7 +140,7 @@ void Game::checkTotalFruitCollision()
 
 void Game::resetPlayer() {
 	if (player) {
-		updateScoreboard(); //TO DO:: otan paizeis prwth fora den krataei to score gia kapoio logo,
+		//updateScoreboard(); //TO DO:: otan paizeis prwth fora den krataei to score gia kapoio logo,
 		//to psaxnw akoma
 		player->setScore(0);
 		player->setLife(5);
@@ -206,13 +213,22 @@ void Game::drawTitleScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText(200, 200, 100, "CHERRY BOMB", br);
+	//graphics::drawText(200, 200, 100, "CHERRY BOMB", br);
+	br.outline_opacity = 0.0f;
+	br.texture = std::string(PLAYER_ASSETS_PATH) + "cb_3.png";
+	graphics::drawRect(CANVAS_WIDTH / 2, 200, 700, 400, br);
 
-	float flash = 0.5f + 0.9f * sinf(graphics::getGlobalTime() / 170);
+	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 170);
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
-	graphics::drawText(250, 300, 50, "CLICK HERE TO PLAY", br);
+	//graphics::drawText(250, 400, 50, "CLICK HERE TO PLAY", br);*/
+	graphics::drawText(CANVAS_WIDTH / 2 - 65, 435, 50, "START", br);
+	br.fill_opacity = 0.0f;
+	br.outline_opacity = 1.0f;
+	br.outline_width = 3.0f;
+	br.texture = "";
+	graphics::drawRect(CANVAS_WIDTH / 2, 420, 150, 60, br);
 }
 
 void Game::drawWeaponScreen()
@@ -223,8 +239,6 @@ void Game::drawWeaponScreen()
 	br.fill_color[2] = 1.0f;
 
 	graphics::drawText(100, 100, 60, "CHOOSE YOUR WEAPON", br);
-	//TO DO: add weapons and choose player
-	//graphics::drawText(100, 150, 30, "PRESS ENTER TO CHOOSE", br);
 
 	///draw fork
 	graphics::Brush brf;
@@ -235,7 +249,6 @@ void Game::drawWeaponScreen()
 	///draw chopsticks
 	graphics::Brush brc;
 	brc.texture = std::string(PLAYER_ASSETS_PATH) + "chopsticks.png";
-	brc.fill_opacity = 1.0f;
 	brc.outline_opacity = 0.0f;
 	graphics::drawRect(2 * CANVAS_WIDTH / 3, 300, 200, 200, brc);
 
@@ -321,6 +334,7 @@ void Game::drawGameScreen()
 
 void Game::drawEndScreen()
 {
+	std::cout << "inside draw end screen" << std::endl;
 	graphics::Brush br;
 	br.fill_color[0] = 1.0f;
 	br.fill_color[1] = 1.0f;
@@ -329,12 +343,21 @@ void Game::drawEndScreen()
 	graphics::drawText(280, 100, 80, "GAME OVER", br);
 	graphics::drawText(300, 150, 30, "CLICK ANYWHERE TO PLAY AGAIN", br);
 	graphics::drawText(350, 250, 30, "SCOREBOARD", br);
+	
+	printScoreboard();
+}
 
+void Game::printScoreboard()
+{
+	updateScoreboard();
+
+	graphics::Brush br;
+	br.fill_color[0] = 1.0f;
+	br.fill_color[1] = 1.0f;
+	br.fill_color[2] = 1.0f;
 	int y = 300;
 	for (auto const& i : scoreboard) {
-		graphics::drawText(400, y, 30, std::to_string(i*y), br); 
-		//ebala to *y gia na dw an kanei kala to sort, meta to vgazoume
-		//den ginetai kala to sort...
+		graphics::drawText(400, y, 30, std::to_string(i), br);
 		y += 30;
 	}
 }
@@ -342,8 +365,8 @@ void Game::drawEndScreen()
 void Game::updateTitleScreen()
 {
 	graphics::getMouseState(mouse);
-	if (mouse.cur_pos_x >= 250 && mouse.cur_pos_x <= 700 &&
-		mouse.cur_pos_y >= 300 - 50 && mouse.cur_pos_y <=300 && mouse.button_left_pressed)
+	if (mouse.cur_pos_x >= CANVAS_WIDTH / 2 - 75 && mouse.cur_pos_x <= CANVAS_WIDTH / 2 + 75 &&
+		mouse.cur_pos_y >= 420 - 30 && mouse.cur_pos_y <= 420 + 30 && mouse.button_left_pressed)
 	{
 		game_status = WEAPON;
 	}
@@ -407,6 +430,8 @@ void Game::updateGameScreen()
 
 void Game::updateEndScreen()
 {
+	std::cout << "inside update end screen" << std::endl;
+	//updateScoreboard();
 	graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
 	{

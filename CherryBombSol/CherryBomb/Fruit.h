@@ -22,4 +22,8 @@ public:
 	float getImage() { return image; }
 
 	float fruitScore();
+
+	float getX() const { return pos_x; }
+	float getY() const { return pos_y; }
+	float getSize() const { return size; }
 };
