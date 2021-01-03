@@ -1,6 +1,43 @@
-﻿  Main.cpp
+﻿  Fruit.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.h(30,34): warning C4099: 'graphics::MouseState': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(106): message : see declaration of 'graphics::MouseState'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.cpp(92,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  functions.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\functions.cpp(10,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\functions.cpp(17,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Game.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.h(30,34): warning C4099: 'graphics::MouseState': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(106): message : see declaration of 'graphics::MouseState'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(127,49): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(307,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(319,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(337,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.h(30,34): warning C4099: 'graphics::MouseState': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(106): message : see declaration of 'graphics::MouseState'
+  Object.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.h(30,34): warning C4099: 'graphics::MouseState': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(106): message : see declaration of 'graphics::MouseState'
+  Player.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.h(30,34): warning C4099: 'graphics::MouseState': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(106): message : see declaration of 'graphics::MouseState'
+  Shot.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.h(30,34): warning C4099: 'graphics::MouseState': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(106): message : see declaration of 'graphics::MouseState'
   Generating code
   Previous IPDB not found, fall back to full compilation.
-  All 132 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 397 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   CherryBomb.vcxproj -> C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb.exe

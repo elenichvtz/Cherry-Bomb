@@ -2,17 +2,6 @@
 #include "config.h"
 #include <iostream>
 
-//void Game::spawnCherry()
-//{
-//	cherrycurrentSpawnTime += graphics::getDeltaTime();
-//	if (cherrycurrentSpawnTime >= cherrySpawnInterval)
-//	{
-//		Cherry* cherry = new Cherry(*this);
-//		cherries.push_back(cherry);
-//		cherrycurrentSpawnTime = 0;
-//	}
-//}
-
 void Game::spawnFruit()
 {
 	fruitcurrentSpawnTime += graphics::getDeltaTime();
@@ -44,7 +33,7 @@ void Game::checkShot()
 {
 	for (auto i : shots)
 	{
-		if (!i->isActive())
+		if ((i->isActive())==false)
 		{
 			delete i;
 			i = nullptr;
@@ -71,18 +60,6 @@ bool Game::checkCollision(Shot* shot, Fruit* fruit)
 		{
 			return false;
 		}
-		Disk d1 = shot->getCollisionHull();
-		Disk d2 = fruit->getCollisionHull();
-
-		float dx = d1.cx - d2.cx;
-		float dy = d1.cy - d2.cy;
-
-		if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-		{
-			return true;
-		}
-		else
-			return false;
 	}
 	else
 	{
@@ -90,19 +67,20 @@ bool Game::checkCollision(Shot* shot, Fruit* fruit)
 		{
 			return false;
 		}
-		Disk d1 = shot->getCollisionHull();
-		Disk d2 = fruit->getCollisionHull();
-
-		float dx = d1.cx - d2.cx;
-		float dy = d1.cy - d2.cy;
-
-		if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
-		{
-			return true;
-		}
-		else
-			return false;
 	}
+
+	Disk d1 = shot->getCollisionHull();
+	Disk d2 = fruit->getCollisionHull();
+
+	float dx = d1.cx - d2.cx;
+	float dy = d1.cy - d2.cy;
+
+	if (sqrt(dx * dx + dy * dy) < d1.radius + d2.radius)
+	{
+		return true;
+	}
+	else
+		return false;
 }
 
 void Game::checkTotalCherryCollision()
@@ -216,11 +194,9 @@ Game::~Game()
 		player = nullptr;
 	}
 
-	/*if (cherries) 
-	{
-		delete cherries;
-		cherries = nullptr;
-	}*/
+	cherries.clear();
+	shots.clear();
+	fruits.clear();
 }
 
 void Game::drawTitleScreen()

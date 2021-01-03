@@ -38,9 +38,6 @@ class Game
 	float fruitSpawnInterval = 800.0f;
 	float fruitcurrentSpawnTime = 0;
 
-	//shot-cherry collision
-	//bool checkCollision(Shot* shot, Cherry* cherry);
-
 	//shot-fruit collision
 	bool checkCollision(Shot* shot, Fruit* fruit);
 

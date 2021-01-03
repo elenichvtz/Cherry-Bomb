@@ -1,6 +1,5 @@
 #include "graphics.h"
 #include "Game.h"
-//#include "Player.h"
 #include "config.h"
 
 void update(float ms)
