@@ -22,7 +22,7 @@ public:
 
     int getScore() { return score; }
     void setScore(int i) { score = i; }
-    void incrementScore(int s) { score += s; } //endeiktiko
+    void incrementScore(int s) { score += s; }
 
     int getLife() const { return life; }
     void setLife(int i) { life = i; }

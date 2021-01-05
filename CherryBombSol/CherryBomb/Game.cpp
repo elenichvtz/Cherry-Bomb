@@ -127,7 +127,6 @@ void Game::checkTotalFruitCollision()
 				std::cout << "fruit collision!!" << std::endl;
 
 				player->incrementScore(fruits[f]->fruitScore());
-				//player->incrementScore(50);
 
 				fruits.erase(fruits.begin() + f);
 				shots.erase(shots.begin() + s);
