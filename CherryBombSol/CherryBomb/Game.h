@@ -27,7 +27,7 @@ class Game
 	std::vector<Shot*> shots;
 	void checkShot();
 
-	class graphics::MouseState mouse;
+	graphics::MouseState mouse;
 	void spawnShot();
 
 	//for the rest of the fruits
@@ -37,6 +37,8 @@ class Game
 	//fruit spawn time
 	float fruitSpawnInterval = 800.0f;
 	float fruitcurrentSpawnTime = 0;
+	void setfruitSpawnInterval(float x) { fruitSpawnInterval = x; }
+	void increasefruitSpawn();
 
 	//shot-fruit collision
 	bool checkCollision(Shot* shot, Fruit* fruit);
@@ -45,7 +47,7 @@ class Game
 
 	void checkTotalFruitCollision();
 
-	void updateScoreboard();
+	//void updateScoreboard();
 	void resetPlayer();
 
 	void drawTitleScreen();
@@ -53,7 +55,7 @@ class Game
 	void drawGameScreen();
 	void drawEndScreen();
 
-	void printScoreboard();
+	void printScore();
 
 	void updateTitleScreen();
 	void updateWeaponScreen();
@@ -67,15 +69,9 @@ public:
 	Game();
 	~Game();
 
-	//std::vector<Cherry*> getCherries() { return cherries; }
-	//std::vector<Shot*> getShots() { return shots; }
-
 	int getGameMode() const { return game_status; }
 	bool getDebugMode() const { return debug_mode; }
 	void setDebugMode(bool d) { debug_mode = d; }
 
 	int getWeaponChoice() const { return weapon_choice; }
-
-	//std::list<int> getScoreboard() { return scoreboard; }
-	//void setScoreboard(std::list<int> s) { scoreboard = s; }
 };

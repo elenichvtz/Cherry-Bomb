@@ -49,7 +49,6 @@ void Player::update()
 
 void Player::draw()
 {
-	graphics::Brush brush;
 	if (game.getWeaponChoice() == 0)
 	{
 		brush.texture = std::string(PLAYER_ASSETS_PATH) + "fork.png";

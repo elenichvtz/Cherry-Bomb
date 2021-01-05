@@ -51,6 +51,16 @@ void Game::spawnShot()
 	std::cout << "shots size: " << shots.size() << std::endl;
 }
 
+void Game::increasefruitSpawn()
+{
+	if (player->getScore() > 500)
+		setfruitSpawnInterval(500.0f);
+	else if (player->getScore() > 1000)
+		setfruitSpawnInterval(300.0f);
+	else if (player->getScore() > 1500)
+		setfruitSpawnInterval(200.0f);
+}
+
 bool Game::checkCollision(Shot* shot, Fruit* fruit)
 {
 	//if fruit is cherry
@@ -148,14 +158,14 @@ void Game::resetPlayer() {
 	}
 }
 
-void Game::updateScoreboard() {
-	if (player) {
-		scoreboard.push_back(player->getScore());
-		scoreboard.sort();
-		if (scoreboard.size() > 5) scoreboard.pop_back();
-		//setScoreboard(scoreboard);
-	}
-}
+//void Game::updateScoreboard() {
+//	if (player) {
+//		scoreboard.push_back(player->getScore());
+//		scoreboard.sort();
+//		if (scoreboard.size() > 5) scoreboard.pop_back();
+//		//setScoreboard(scoreboard);
+//	}
+//}
 
 void Game::update()
 {
@@ -212,7 +222,6 @@ void Game::drawTitleScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	//graphics::drawText(200, 200, 100, "CHERRY BOMB", br);
 	br.outline_opacity = 0.0f;
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "cb_3.png";
 	graphics::drawRect(CANVAS_WIDTH / 2, 200, 700, 400, br);
@@ -221,13 +230,13 @@ void Game::drawTitleScreen()
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
-	//graphics::drawText(250, 400, 50, "CLICK HERE TO PLAY", br);*/
-	graphics::drawText(CANVAS_WIDTH / 2 - 65, 435, 50, "START", br);
+	
+	graphics::drawText(CANVAS_WIDTH / 2 - 65, (9 * CANVAS_HEIGHT / 10) + 15, 50, "START", br);
 	br.fill_opacity = 0.0f;
 	br.outline_opacity = 1.0f;
 	br.outline_width = 3.0f;
 	br.texture = "";
-	graphics::drawRect(CANVAS_WIDTH / 2, 420, 150, 60, br);
+	graphics::drawRect(CANVAS_WIDTH / 2, 9 * CANVAS_HEIGHT / 10, 150, 60, br);
 }
 
 void Game::drawWeaponScreen()
@@ -339,33 +348,32 @@ void Game::drawEndScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText(280, 100, 80, "GAME OVER", br);
-	graphics::drawText(300, 150, 30, "CLICK ANYWHERE TO PLAY AGAIN", br);
-	graphics::drawText(350, 250, 30, "SCOREBOARD", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 200, 2 * CANVAS_HEIGHT / 10, 80, "GAME OVER", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 215, 3 * CANVAS_HEIGHT / 10, 30, "CLICK ANYWHERE TO PLAY AGAIN", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 50, 4 * CANVAS_HEIGHT / 10, 30, "SCORE", br);
 	
-	printScoreboard();
+	printScore();
 }
 
-void Game::printScoreboard()
+void Game::printScore()
 {
-	updateScoreboard();
-
+	//updateScoreboard();
 	graphics::Brush br;
 	br.fill_color[0] = 1.0f;
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
-	int y = 300;
-	for (auto const& i : scoreboard) {
-		graphics::drawText(400, y, 30, std::to_string(i), br);
-		y += 30;
-	}
+
+	char score[40];
+	sprintf_s(score, "%i", player->getScore());
+	
+	graphics::drawText((CANVAS_WIDTH / 2) - 40, 5 * CANVAS_HEIGHT / 10, 40, score, br);
 }
 
 void Game::updateTitleScreen()
 {
 	graphics::getMouseState(mouse);
 	if (mouse.cur_pos_x >= CANVAS_WIDTH / 2 - 75 && mouse.cur_pos_x <= CANVAS_WIDTH / 2 + 75 &&
-		mouse.cur_pos_y >= 420 - 30 && mouse.cur_pos_y <= 420 + 30 && mouse.button_left_pressed)
+		mouse.cur_pos_y >= (9 * CANVAS_HEIGHT / 10) - 30 && mouse.cur_pos_y <= (9 * CANVAS_HEIGHT / 10) + 30 && mouse.button_left_pressed)
 	{
 		game_status = WEAPON;
 	}
@@ -425,6 +433,8 @@ void Game::updateGameScreen()
 	checkTotalCherryCollision();
 
 	checkTotalFruitCollision();
+
+	increasefruitSpawn();
 }
 
 void Game::updateEndScreen()

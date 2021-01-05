@@ -38,7 +38,7 @@ void Shot::draw()
 void Shot::init()
 {
 	speed = 0.4f;
-	size = 10.0f;
+	size = 20.0f;
 }
 
 Disk Shot::getCollisionHull() const

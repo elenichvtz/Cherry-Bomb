@@ -23,6 +23,8 @@ public:
 
 	float fruitScore();
 
+	void setFruitSpeed(float x) { speed = x; }
+
 	float getX() const { return pos_x; }
 	float getY() const { return pos_y; }
 	float getSize() const { return size; }
