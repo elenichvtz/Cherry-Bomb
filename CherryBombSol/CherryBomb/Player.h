@@ -9,7 +9,7 @@ class Player : public Object
 	float speed = 8.0f;
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT - 50;
 	int score = 0;
-	int life = 5;
+	int life = PLAYER_LIFE;
 
     graphics::Brush brush;
 

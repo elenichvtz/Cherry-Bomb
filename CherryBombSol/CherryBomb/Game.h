@@ -3,30 +3,28 @@
 #include "Player.h"
 #include "Shot.h"
 #include "Fruit.h"
-#include <list>
 #include <vector>
 
 class Game
 {
 	typedef enum { TITLE,INSTRUCTIONS, WEAPON, GAME, END } status_t;
 	status_t game_status = TITLE;
+	bool debug_mode = false;
+
 	class Player* player;
 	//variable to check if player has already been initialized
 	bool player_initialized = false;
-	bool debug_mode = false;
-
+	
 	typedef enum { FORK, CHOPSTICKS } choice_w;
 	choice_w weapon_choice = FORK;
-	
-	std::list<int> scoreboard;
 
 	//for cherries
 	std::vector<Fruit*> cherries;
-	void checkFruit();
+	void checkCherries();
 
 	//for shots
 	std::vector<Shot*> shots;
-	void checkShot();
+	void checkShots();
 
 	graphics::MouseState mouse;
 	void spawnShot();
@@ -34,6 +32,7 @@ class Game
 	//for the rest of the fruits
 	std::vector<Fruit*> fruits;
 	void spawnFruit();
+	void checkFruits();
 
 	//fruit spawn time
 	float fruitSpawnInterval = 800.0f;
@@ -48,7 +47,6 @@ class Game
 
 	void checkTotalFruitCollision();
 
-	//void updateScoreboard();
 	void resetPlayer();
 
 	void drawTitleScreen();

@@ -35,7 +35,7 @@ void Shot::draw()
 
 void Shot::init()
 {
-	speed = 0.45f;
+	speed = 0.5f;
 	size = 20.0f;
 }
 

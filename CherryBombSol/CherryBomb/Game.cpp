@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "config.h"
-#include <iostream>
 
 void Game::spawnFruit()
 {
@@ -20,26 +19,35 @@ void Game::spawnFruit()
 	}
 }
 
-void Game::checkFruit()
+void Game::checkFruits()
 {
-	for (auto i : shots)
+	for (size_t f = 0; f < shots.size(); f++)
 	{
-		if ((i->isActive())==false)
+		if ((fruits[f]->isActive()) == false)
 		{
-			delete i;
-			i = nullptr;
+			fruits.erase(fruits.begin() + f);
 		}
 	}
 }
 
-void Game::checkShot()
+void Game::checkCherries()
 {
-	for (auto i : shots)
+	for (size_t c = 0; c < cherries.size(); c++)
 	{
-		if ((i->isActive())==false)
+		if ((cherries[c]->isActive()) == false)
 		{
-			delete i;
-			i = nullptr;
+			cherries.erase(cherries.begin() + c);
+		}
+	}
+}
+
+void Game::checkShots()
+{
+	for (size_t s = 0; s < shots.size(); s++)
+	{
+		if ((shots[s]->isActive())==false)
+		{
+			shots.erase(shots.begin() + s);
 		}
 	}
 }
@@ -51,7 +59,6 @@ void Game::spawnShot()
 	shot->setX(player->getX());
 	shot->setY(player->getY());
 	shots.push_back(shot);
-	std::cout << "shots size: " << shots.size() << std::endl;
 }
 
 void Game::increasefruitSpawn()
@@ -104,8 +111,6 @@ void Game::checkTotalCherryCollision()
 		{
 			if (checkCollision(shots[s], cherries[c]))
 			{
-				std::cout << "cherry collision!!" << std::endl;
-
 				//bang!
 				graphics::playSound(std::string(AUDIO_ASSETS_PATH) + "explosion.wav", 0.3f , false);
 
@@ -121,7 +126,6 @@ void Game::checkTotalCherryCollision()
 
 				player->loseLife();
 				
-				std::cout << "lost a life!" << std::endl;
 				if (player->getLife() <= 0) game_status = END;
 				break;
 			}
@@ -137,8 +141,6 @@ void Game::checkTotalFruitCollision()
 		{
 			if (checkCollision(shots[s], fruits[f]))
 			{
-				std::cout << "fruit collision!!" << std::endl;
-
 				player->incrementScore(fruits[f]->fruitScore());
 
 				fruits.erase(fruits.begin() + f);
@@ -154,7 +156,7 @@ void Game::resetPlayer()
 {
 	if (player) {
 		player->setScore(0);
-		player->setLife(5);
+		player->setLife(PLAYER_LIFE);
 		shots.clear();
 		cherries.clear();
 	}
@@ -190,7 +192,7 @@ void Game::draw()
 void Game::init()
 {
 	graphics::setFont(std::string(FONT_ASSETS_PATH) + "ARCADECLASSIC.ttf");
-	graphics::playMusic(std::string(AUDIO_ASSETS_PATH) + "NCT_127-Cherry_Bomb_Instrumental.mp3", 0.4f, true, 3000);
+	graphics::playMusic(std::string(AUDIO_ASSETS_PATH) + "NCT_127-Cherry_Bomb_Instrumental.mp3", 0.5f, true, 3000);
 }
 
 Game::Game()
@@ -231,15 +233,7 @@ void Game::drawTitleScreen()
 
 	graphics::drawText(CANVAS_WIDTH / 2 - 240, (9 * CANVAS_HEIGHT / 10) + 15, 50, "PRESS SPACE TO START", br);
 
-	//einai proxeiro edo apla ama exoume button einai pio eukolo kai den exoume thema me to full screen
-	graphics::drawText(CANVAS_WIDTH - 290, 60, 28, "PRESS H FOR HELP", br);
-	
-	/*graphics::drawText(WINDOW_WIDTH / 2 - 65, (9 * WINDOW_HEIGHT / 10) + 15, 50, "START", br);
-	br.fill_opacity = 0.0f;
-	br.outline_opacity = 1.0f;
-	br.outline_width = 3.0f;
-	br.texture = "";
-	graphics::drawRect(WINDOW_WIDTH / 2, 9 * WINDOW_HEIGHT / 10, 150, 60, br);*/
+	graphics::drawText(CANVAS_WIDTH - 288, 60, 28, "PRESS H FOR HELP", br);
 }
 
 void Game::drawInstructionScreen()
@@ -249,21 +243,19 @@ void Game::drawInstructionScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText(WINDOW_WIDTH / 2 - 150, 100, 60, "HOW TO PLAY", br);
-
-	graphics::drawText(CANVAS_WIDTH/2-300, 150, 35, "USE A AND D OR LEFT AND RIGHT ARROWS", br);
-	graphics::drawText(CANVAS_WIDTH/2-300, 200, 35, "TO MOVE YOUR WEAPON LEFT AND RIGHT", br);
-	graphics::drawText(CANVAS_WIDTH/2-300, 250, 35, "FIRE SHOTS BY LEFT CLICKING YOUR MOUSE", br);
-	graphics::drawText(CANVAS_WIDTH/2-300, 300, 35, "BE CAREFUL! IF YOU HIT A CHERRY YOU WILL", br);
-	graphics::drawText(CANVAS_WIDTH/2-300, 350, 35, "LOSE A LIFE! AIM FOR THE OTHER", br);
-	graphics::drawText(CANVAS_WIDTH/2-300, 400, 35, "FRUITS AND EARN A HIGH SCORE!", br);
+	graphics::drawText(WINDOW_WIDTH / 2 - 140, 100, 60, "HOW TO PLAY", br);
+	
+	graphics::drawText(CANVAS_WIDTH/2-400, 150, 30, "USE A AND D OR LEFT AND RIGHT ARROWS TO MOVE YOUR WEAPON", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 200, 30, "FIRE SHOTS BY LEFT CLICKING YOUR MOUSE", br);
+	graphics::drawText(CANVAS_WIDTH/2-350, 250, 30, "BE CAREFUL! IF YOU HIT A CHERRY YOU WILL LOSE A LIFE!", br);
+	graphics::drawText(CANVAS_WIDTH/2-330, 300, 30, "AIM FOR THE OTHER FRUITS AND EARN A HIGH SCORE!", br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
 
-	graphics::drawText(CANVAS_WIDTH/2-250, 450, 50, "PRESS ENTER TO START", br);
+	graphics::drawText(CANVAS_WIDTH/2-250, 450, 50, "PRESS ENTER TO GO BACK", br);
 }
 
 void Game::drawWeaponScreen()
@@ -288,18 +280,12 @@ void Game::drawWeaponScreen()
 	graphics::drawRect(2 * CANVAS_WIDTH / 3, 300, 200, 200, brc);
 
 	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
-	
-	/*if (mouse.cur_pos_x >= CANVAS_WIDTH/3 - 70 && mouse.cur_pos_x <= CANVAS_WIDTH / 3 + 70 && 
-		mouse.cur_pos_y >= 300 - 70 && mouse.cur_pos_y <= 300 + 70)*/
 	{
 		//choose fork
 		weapon_choice = FORK;
 	}
 
 	if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
-	
-	/*if (mouse.cur_pos_x >= 2 * CANVAS_WIDTH / 3 - 100 && mouse.cur_pos_x <= 2*CANVAS_WIDTH/3 + 100 &&
-		mouse.cur_pos_y >= 300 - 100 && mouse.cur_pos_y <= 300 + 100)*/
 	{
 		//choose chopsticks
 		weapon_choice = CHOPSTICKS;
@@ -337,7 +323,7 @@ void Game::drawGameScreen()
 	for (auto f : fruits)
 		f->draw();
 
-	//UI/info layer -> could become a separate class
+	//UI/info layer
 	if (player)
 	{
 		//score
@@ -369,7 +355,6 @@ void Game::drawGameScreen()
 
 void Game::drawEndScreen()
 {
-	std::cout << "inside draw end screen" << std::endl;
 	graphics::Brush br;
 	br.fill_color[0] = 1.0f;
 	br.fill_color[1] = 1.0f;
@@ -403,8 +388,6 @@ void Game::printScore()
 
 void Game::updateTitleScreen()
 {
-	/*if (mouse.cur_pos_x >= CANVAS_WIDTH - 85 && mouse.cur_pos_x <= CANVAS_WIDTH - 15  &&
-		mouse.cur_pos_y >= 15 && mouse.cur_pos_y <= 85 && mouse.button_left_pressed)*/
 	if(graphics::getKeyState(graphics::SCANCODE_H))
 	{
 		game_status = INSTRUCTIONS;
@@ -417,9 +400,6 @@ void Game::updateTitleScreen()
 
 void Game::updateInstructionScreen()
 {
-	/*
-	if (mouse.button_left_pressed)
-	{*/
 	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
 	{
 		game_status = TITLE;
@@ -428,9 +408,6 @@ void Game::updateInstructionScreen()
 
 void Game::updateWeaponScreen()
 {
-	/*
-	if (mouse.button_left_pressed)
-	{*/
 	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
 	{
 		game_status = GAME;
@@ -450,11 +427,15 @@ void Game::updateGameScreen()
 		player->update();
 	}
 
+	checkCherries();
+	checkFruits();
+
 	spawnFruit();
 
 	graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
 	{
+		checkShots();
 		spawnShot();
 	}
 
@@ -478,7 +459,7 @@ void Game::updateGameScreen()
 			f->update();
 		}
 	}
-
+	
 	checkTotalCherryCollision();
 
 	checkTotalFruitCollision();
@@ -488,11 +469,10 @@ void Game::updateGameScreen()
 
 void Game::updateEndScreen()
 {
-	std::cout << "inside update end screen" << std::endl;
 	graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
 	{
 		resetPlayer();
-		game_status = GAME;
+		game_status = TITLE;
 	}
 }

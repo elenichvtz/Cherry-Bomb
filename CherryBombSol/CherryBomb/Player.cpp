@@ -10,12 +10,12 @@ void Player::update()
 	//A or LEFT ARROW to move left
 	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
 	{
-		pos_x -= speed * graphics::getDeltaTime() / 10.0f;
+		pos_x -= speed * graphics::getDeltaTime() / 20.0f;
 	}
 	//D or RIGHT ARROW to move right
 	if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
 	{
-		pos_x += speed * graphics::getDeltaTime() / 10.0f;
+		pos_x += speed * graphics::getDeltaTime() / 20.0f;
 	}
 
 	//limitations

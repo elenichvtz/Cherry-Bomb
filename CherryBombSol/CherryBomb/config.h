@@ -10,3 +10,5 @@
 #define WINDOW_HEIGHT 500
 #define CANVAS_WIDTH 1000
 #define CANVAS_HEIGHT 500
+
+#define PLAYER_LIFE 5
