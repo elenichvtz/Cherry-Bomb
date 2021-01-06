@@ -11,6 +11,9 @@ class Game
 	status_t game_status = TITLE;
 	bool debug_mode = false;
 
+	bool explosion = false;
+	float explosion_x, explosion_y, explosion_size;
+
 	class Player* player;
 	//variable to check if player has already been initialized
 	bool player_initialized = false;
@@ -35,7 +38,7 @@ class Game
 	void checkFruits(size_t f);
 
 	//fruit spawn time
-	float fruitSpawnInterval = 800.0f;
+	float fruitSpawnInterval = 400.0f;
 	float fruitcurrentSpawnTime = 0;
 	void setfruitSpawnInterval(float x) { fruitSpawnInterval = x; }
 	void increasefruitSpawn();

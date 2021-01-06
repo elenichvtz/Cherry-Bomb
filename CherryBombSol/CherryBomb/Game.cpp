@@ -58,11 +58,11 @@ void Game::spawnShot()
 void Game::increasefruitSpawn()
 {
 	if (player->getScore() > 500)
-		setfruitSpawnInterval(500.0f);
-	else if (player->getScore() > 1000)
-		setfruitSpawnInterval(300.0f);
-	else if (player->getScore() > 1500)
 		setfruitSpawnInterval(200.0f);
+	else if (player->getScore() > 1000)
+		setfruitSpawnInterval(100.0f);
+	else if (player->getScore() > 1500)
+		setfruitSpawnInterval(50.0f);
 }
 
 bool Game::checkCollision(Shot* shot, Fruit* fruit)
@@ -108,12 +108,11 @@ void Game::checkTotalCherryCollision()
 				//bang!
 				graphics::playSound(std::string(AUDIO_ASSETS_PATH) + "explosion.wav", 0.5f , false);
 
-				//////
-				//graphics::Brush br;
-				//br.texture = std::string(FRUIT_ASSETS_PATH) + "boom.png";
-				//br.outline_opacity = 0.0f;
-				//graphics::drawRect(cherries[c]->getX(), cherries[c]->getY(), cherries[c]->getSize(), cherries[c]->getSize(), br);
-				////////
+				explosion = true;
+
+				explosion_x = cherries[c]->getX();
+				explosion_y = cherries[c]->getY();
+				explosion_size = cherries[c]->getSize();
 
 				cherries.erase(cherries.begin() + c);
 				shots.erase(shots.begin() + s);
@@ -319,13 +318,15 @@ void Game::drawGameScreen()
 	for (auto f : fruits)
 		f->draw();
 
+	graphics::Brush br;
+
 	//UI/info layer
 	if (player)
 	{
 		//score
 		char score[40];
 		sprintf_s(score, "SCORE %i", player->getScore());
-		graphics::Brush br;
+		
 		br.fill_color[0] = 1.0f;
 		br.fill_color[1] = 1.0f;
 		br.fill_color[2] = 1.0f;
@@ -334,7 +335,6 @@ void Game::drawGameScreen()
 	//life
 	float life = player ? player->getLife() : 0;
 
-	graphics::Brush br;
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "heart.png";
 	br.fill_opacity = 1.0f;
 	br.outline_opacity = 0.0f;
@@ -346,6 +346,19 @@ void Game::drawGameScreen()
 	{
 		graphics::drawRect(CANVAS_WIDTH - x, 45, 60, 60, br);
 		x -= 45;
+	}
+
+	//explosion effect
+	if (explosion == true)
+	{
+		br.texture = std::string(FRUIT_ASSETS_PATH) + "boom.png";
+		br.outline_opacity = 0.0f;
+		graphics::drawRect(explosion_x, explosion_y, explosion_size, explosion_size, br);
+
+		if (graphics::getDeltaTime() > 1000)
+			br.texture = "";
+
+		explosion == false;
 	}
 }
 
