@@ -218,7 +218,7 @@ void Game::drawTitleScreen()
 	graphics::drawRect(CANVAS_WIDTH / 2, 200, 700, 400, br);
 
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "inst.png";
-	graphics::drawRect(CANVAS_WIDTH - 45, 50, 70, 70, br);
+	graphics::drawRect(50, 50, 70, 70, br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
@@ -227,7 +227,8 @@ void Game::drawTitleScreen()
 
 	graphics::drawText(CANVAS_WIDTH / 2 - 240, (9 * CANVAS_HEIGHT / 10) + 15, 50, "PRESS SPACE TO START", br);
 
-	graphics::drawText(CANVAS_WIDTH - 288, 60, 28, "PRESS H FOR HELP", br);
+	graphics::drawText(90, 50, 28, "PRESS H", br);
+	graphics::drawText(90, 70, 28, "FOR HELP", br);
 }
 
 void Game::drawInstructionScreen()
@@ -260,6 +261,7 @@ void Game::drawWeaponScreen()
 	br.fill_color[2] = 1.0f;
 
 	graphics::drawText(100, 100, 60, "CHOOSE YOUR WEAPON", br);
+	graphics::drawText(100, 150, 30, "PRESS ENTER TO CHOOSE", br);
 
 	///draw fork
 	graphics::Brush brf;
@@ -351,10 +353,14 @@ void Game::drawEndScreen()
 {
 	graphics::Brush br;
 	br.fill_color[0] = 1.0f;
+	br.fill_color[1] = 0.0f;
+	br.fill_color[2] = 0.0f;
+
+	graphics::drawText((CANVAS_WIDTH / 2) - 250, 2.5 * CANVAS_HEIGHT / 10, 110, "GAME OVER", br);
+
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 250, 2.5 * CANVAS_HEIGHT / 10, 110, "GAME OVER", br);
 	graphics::drawText((CANVAS_WIDTH / 2) - 105, 4 * CANVAS_HEIGHT / 10, 80, "SCORE", br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
@@ -362,7 +368,7 @@ void Game::drawEndScreen()
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 350, 8 * CANVAS_HEIGHT / 10, 50, "CLICK ANYWHERE TO PLAY AGAIN", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 300, 8 * CANVAS_HEIGHT / 10, 50, "PRESS ENTER TO PLAY AGAIN", br);
 	
 	printScore();
 }
@@ -377,7 +383,7 @@ void Game::printScore()
 	char score[40];
 	sprintf_s(score, "%i", player->getScore());
 	
-	graphics::drawText((CANVAS_WIDTH / 2) - 25, 5.5 * CANVAS_HEIGHT / 10, 80, score, br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 25, 6 * CANVAS_HEIGHT / 10, 80, score, br);
 }
 
 void Game::updateTitleScreen()
@@ -468,8 +474,7 @@ void Game::updateGameScreen()
 
 void Game::updateEndScreen()
 {
-	graphics::getMouseState(mouse);
-	if (mouse.button_left_pressed)
+	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
 	{
 		resetPlayer();
 		game_status = TITLE;

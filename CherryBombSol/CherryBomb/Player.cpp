@@ -31,9 +31,8 @@ void Player::draw()
 	}
 	else
 	{
-		brush.texture = std::string(PLAYER_ASSETS_PATH) + "chopsticks.png";
+		brush.texture = std::string(PLAYER_ASSETS_PATH) + "chopstick.png";
 	}
-	brush.outline_opacity = 0.0f;
 	brush.outline_opacity = 0.0f;
 
 	//draw fork

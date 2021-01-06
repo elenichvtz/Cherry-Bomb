@@ -15,10 +15,16 @@ void Shot::update()
 
 void Shot::draw()
 {
+	if (game.getWeaponChoice() == 0)
+	{
+		brush.texture = std::string(PLAYER_ASSETS_PATH) + "gray_shot.png";
+	}
+	else
+	{
+		brush.texture = std::string(PLAYER_ASSETS_PATH) + "brown_shot.png";
+	}
 	brush.outline_opacity = 0.0f;
-	brush.fill_color[1] = 1.0f;
-	
-	graphics::drawDisk(pos_x, pos_y, size, brush);
+	graphics::drawRect(pos_x, pos_y, size, size, brush);
 
 	if (game.getDebugMode())
 	{
