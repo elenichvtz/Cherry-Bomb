@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Game.h"
+#include "graphics.h"
 #include "config.h"
 
 class Player : public Object
@@ -8,7 +9,7 @@ class Player : public Object
 	float speed = 8.0f;
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT - 50;
 	int score = 0;
-	int life = 1;
+	int life = 5;
 
     graphics::Brush brush;
 

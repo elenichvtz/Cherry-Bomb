@@ -1,10 +1,12 @@
 #pragma once
 #include "Object.h"
+#include "graphics.h"
 
 class Shot : public Object, public Collidable
 {
 	float size, pos_x, pos_y, speed;
 	bool active = true;
+	graphics::Brush brush;
 
 public:
 	Shot(const class Game& game);

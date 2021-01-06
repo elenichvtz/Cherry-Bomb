@@ -14,8 +14,6 @@ Fruit::~Fruit()
 
 void Fruit::update()
 {
-	//rotation += 0.15f * graphics::getDeltaTime();
-	//rotation = fmodf(rotation, 360);
 	if (direction == 0.0f)
 		pos_x += speed * graphics::getDeltaTime();
 	else
@@ -26,8 +24,6 @@ void Fruit::update()
 
 void Fruit::draw()
 {
-	//graphics::setOrientation(rotation);
-
 	if(image == 0.0f)
 	{
 		brush.texture = std::string(FRUIT_ASSETS_PATH) + "apple.png";
@@ -62,7 +58,6 @@ void Fruit::draw()
 
 	if (game.getDebugMode())
 	{
-		graphics::Brush brush;
 		brush.outline_opacity = 1.0f;
 		brush.texture = "";
 		brush.fill_color[0] = 1.0f;
@@ -91,9 +86,7 @@ void Fruit::init()
 		pos_x = CANVAS_WIDTH + 110;
 	}
 	pos_y = 100 + 200 * rand0to1();
-	size = 60 + 100 * rand0to1();
-
-	//rotation = 360 * rand0to1();
+	size = 70 + 100 * rand0to1();
 }
 
 Disk Fruit::getCollisionHull() const

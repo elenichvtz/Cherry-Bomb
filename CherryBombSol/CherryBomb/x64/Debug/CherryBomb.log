@@ -1,7 +1,4 @@
-﻿  Game.cpp
-C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
-C:\Users\nikim\Desktop\c\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
-C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(139,49): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(358,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(370,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  CherryBomb.vcxproj -> C:\Users\nikim\Desktop\c\CherryBombSol\bin\CherryBomb_debug.exe
+﻿  Shot.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
+  CherryBomb.vcxproj -> C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb_debug.exe

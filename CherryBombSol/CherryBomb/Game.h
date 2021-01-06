@@ -22,6 +22,7 @@ class Game
 
 	//for cherries
 	std::vector<Fruit*> cherries;
+	void checkFruit();
 
 	//for shots
 	std::vector<Shot*> shots;

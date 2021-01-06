@@ -20,14 +20,17 @@ void Game::spawnFruit()
 	}
 }
 
-//void Game::checkCherry()
-//{
-//	if (cherry && !cherry->isActive())
-//	{
-//		delete cherry;
-//		cherry = nullptr;
-//	}
-//}
+void Game::checkFruit()
+{
+	for (auto i : shots)
+	{
+		if ((i->isActive())==false)
+		{
+			delete i;
+			i = nullptr;
+		}
+	}
+}
 
 void Game::checkShot()
 {
@@ -150,23 +153,12 @@ void Game::checkTotalFruitCollision()
 void Game::resetPlayer() 
 {
 	if (player) {
-		//updateScoreboard(); //TO DO:: otan paizeis prwth fora den krataei to score gia kapoio logo,
-		//to psaxnw akoma
 		player->setScore(0);
 		player->setLife(5);
 		shots.clear();
 		cherries.clear();
 	}
 }
-
-//void Game::updateScoreboard() {
-//	if (player) {
-//		scoreboard.push_back(player->getScore());
-//		scoreboard.sort();
-//		if (scoreboard.size() > 5) scoreboard.pop_back();
-//		//setScoreboard(scoreboard);
-//	}
-//}
 
 void Game::update()
 {
@@ -237,7 +229,10 @@ void Game::drawTitleScreen()
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
 
-	graphics::drawText(CANVAS_WIDTH / 2 - 240, (9 * CANVAS_HEIGHT / 10) + 15, 50, "PRESS ENTER TO START", br);
+	graphics::drawText(CANVAS_WIDTH / 2 - 240, (9 * CANVAS_HEIGHT / 10) + 15, 50, "PRESS SPACE TO START", br);
+
+	//einai proxeiro edo apla ama exoume button einai pio eukolo kai den exoume thema me to full screen
+	graphics::drawText(CANVAS_WIDTH - 290, 60, 28, "PRESS H FOR HELP", br);
 	
 	/*graphics::drawText(WINDOW_WIDTH / 2 - 65, (9 * WINDOW_HEIGHT / 10) + 15, 50, "START", br);
 	br.fill_opacity = 0.0f;
@@ -292,19 +287,19 @@ void Game::drawWeaponScreen()
 	brc.outline_opacity = 0.0f;
 	graphics::drawRect(2 * CANVAS_WIDTH / 3, 300, 200, 200, brc);
 
-	//if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
-	graphics::getMouseState(mouse);
-	if (mouse.cur_pos_x >= CANVAS_WIDTH/3 - 70 && mouse.cur_pos_x <= CANVAS_WIDTH / 3 + 70 && 
-		mouse.cur_pos_y >= 300 - 70 && mouse.cur_pos_y <= 300 + 70)
+	if (graphics::getKeyState(graphics::SCANCODE_A) || graphics::getKeyState(graphics::SCANCODE_LEFT))
+	
+	/*if (mouse.cur_pos_x >= CANVAS_WIDTH/3 - 70 && mouse.cur_pos_x <= CANVAS_WIDTH / 3 + 70 && 
+		mouse.cur_pos_y >= 300 - 70 && mouse.cur_pos_y <= 300 + 70)*/
 	{
 		//choose fork
 		weapon_choice = FORK;
 	}
 
-	//if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
-	graphics::getMouseState(mouse);
-	if (mouse.cur_pos_x >= 2 * CANVAS_WIDTH / 3 - 100 && mouse.cur_pos_x <= 2*CANVAS_WIDTH/3 + 100 &&
-		mouse.cur_pos_y >= 300 - 100 && mouse.cur_pos_y <= 300 + 100)
+	if (graphics::getKeyState(graphics::SCANCODE_D) || graphics::getKeyState(graphics::SCANCODE_RIGHT))
+	
+	/*if (mouse.cur_pos_x >= 2 * CANVAS_WIDTH / 3 - 100 && mouse.cur_pos_x <= 2*CANVAS_WIDTH/3 + 100 &&
+		mouse.cur_pos_y >= 300 - 100 && mouse.cur_pos_y <= 300 + 100)*/
 	{
 		//choose chopsticks
 		weapon_choice = CHOPSTICKS;
@@ -395,7 +390,6 @@ void Game::drawEndScreen()
 
 void Game::printScore()
 {
-	//updateScoreboard();
 	graphics::Brush br;
 	br.fill_color[0] = 1.0f;
 	br.fill_color[1] = 1.0f;
@@ -409,13 +403,13 @@ void Game::printScore()
 
 void Game::updateTitleScreen()
 {
-	graphics::getMouseState(mouse);
-	if (mouse.cur_pos_x >= CANVAS_WIDTH - 85 && mouse.cur_pos_x <= CANVAS_WIDTH - 15  &&
-		mouse.cur_pos_y >= 15 && mouse.cur_pos_y <= 85 && mouse.button_left_pressed)
+	/*if (mouse.cur_pos_x >= CANVAS_WIDTH - 85 && mouse.cur_pos_x <= CANVAS_WIDTH - 15  &&
+		mouse.cur_pos_y >= 15 && mouse.cur_pos_y <= 85 && mouse.button_left_pressed)*/
+	if(graphics::getKeyState(graphics::SCANCODE_H))
 	{
 		game_status = INSTRUCTIONS;
 	}
-	else if (graphics::getKeyState(graphics::SCANCODE_RETURN))
+	else if (graphics::getKeyState(graphics::SCANCODE_SPACE))
 	{
 		game_status = WEAPON;
 	}
@@ -423,18 +417,18 @@ void Game::updateTitleScreen()
 
 void Game::updateInstructionScreen()
 {
-	/*graphics::getMouseState(mouse);
+	/*
 	if (mouse.button_left_pressed)
 	{*/
 	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
 	{
-		game_status = WEAPON;
+		game_status = TITLE;
 	}
 }
 
 void Game::updateWeaponScreen()
 {
-	/*graphics::getMouseState(mouse);
+	/*
 	if (mouse.button_left_pressed)
 	{*/
 	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
@@ -495,7 +489,6 @@ void Game::updateGameScreen()
 void Game::updateEndScreen()
 {
 	std::cout << "inside update end screen" << std::endl;
-	//updateScoreboard();
 	graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
 	{

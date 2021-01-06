@@ -4,5 +4,4 @@
 Object::Object(const Game & game)
 	:game(game)
 {
-
 }
