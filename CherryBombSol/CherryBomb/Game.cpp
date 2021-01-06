@@ -19,25 +19,19 @@ void Game::spawnFruit()
 	}
 }
 
-void Game::checkFruits()
+void Game::checkFruits(size_t f)
 {
-	for (size_t f = 0; f < shots.size(); f++)
+	if ((fruits[f]->isActive()) == false)
 	{
-		if ((fruits[f]->isActive()) == false)
-		{
-			fruits.erase(fruits.begin() + f);
-		}
+		fruits.erase(fruits.begin() + f);
 	}
 }
 
-void Game::checkCherries()
+void Game::checkCherries(size_t c)
 {
-	for (size_t c = 0; c < cherries.size(); c++)
+	if ((cherries[c]->isActive()) == false)
 	{
-		if ((cherries[c]->isActive()) == false)
-		{
-			cherries.erase(cherries.begin() + c);
-		}
+		cherries.erase(cherries.begin() + c);
 	}
 }
 
@@ -112,7 +106,7 @@ void Game::checkTotalCherryCollision()
 			if (checkCollision(shots[s], cherries[c]))
 			{
 				//bang!
-				graphics::playSound(std::string(AUDIO_ASSETS_PATH) + "explosion.wav", 0.3f , false);
+				graphics::playSound(std::string(AUDIO_ASSETS_PATH) + "explosion.wav", 0.5f , false);
 
 				//////
 				//graphics::Brush br;
@@ -192,7 +186,7 @@ void Game::draw()
 void Game::init()
 {
 	graphics::setFont(std::string(FONT_ASSETS_PATH) + "ARCADECLASSIC.ttf");
-	graphics::playMusic(std::string(AUDIO_ASSETS_PATH) + "NCT_127-Cherry_Bomb_Instrumental.mp3", 0.5f, true, 3000);
+	graphics::playMusic(std::string(AUDIO_ASSETS_PATH) + "NCT_127-Cherry_Bomb_Instrumental.mp3", 0.9f, true, 3000);
 }
 
 Game::Game()
@@ -224,7 +218,7 @@ void Game::drawTitleScreen()
 	graphics::drawRect(CANVAS_WIDTH / 2, 200, 700, 400, br);
 
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "inst.png";
-	graphics::drawRect(CANVAS_WIDTH - 50, 50, 70, 70, br);
+	graphics::drawRect(CANVAS_WIDTH - 45, 50, 70, 70, br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
@@ -245,10 +239,10 @@ void Game::drawInstructionScreen()
 
 	graphics::drawText(WINDOW_WIDTH / 2 - 140, 100, 60, "HOW TO PLAY", br);
 	
-	graphics::drawText(CANVAS_WIDTH/2-400, 150, 30, "USE A AND D OR LEFT AND RIGHT ARROWS TO MOVE YOUR WEAPON", br);
-	graphics::drawText(CANVAS_WIDTH/2-300, 200, 30, "FIRE SHOTS BY LEFT CLICKING YOUR MOUSE", br);
-	graphics::drawText(CANVAS_WIDTH/2-350, 250, 30, "BE CAREFUL! IF YOU HIT A CHERRY YOU WILL LOSE A LIFE!", br);
-	graphics::drawText(CANVAS_WIDTH/2-330, 300, 30, "AIM FOR THE OTHER FRUITS AND EARN A HIGH SCORE!", br);
+	graphics::drawText(CANVAS_WIDTH/2-400, 170, 30, "USE A AND D OR LEFT AND RIGHT ARROWS TO MOVE YOUR WEAPON", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 220, 30, "FIRE SHOTS BY LEFT CLICKING YOUR MOUSE", br);
+	graphics::drawText(CANVAS_WIDTH/2-350, 270, 30, "BE CAREFUL! IF YOU HIT A CHERRY YOU WILL LOSE A LIFE!", br);
+	graphics::drawText(CANVAS_WIDTH/2-330, 320, 30, "AIM FOR THE OTHER FRUITS AND EARN A HIGH SCORE!", br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
@@ -333,7 +327,7 @@ void Game::drawGameScreen()
 		br.fill_color[0] = 1.0f;
 		br.fill_color[1] = 1.0f;
 		br.fill_color[2] = 1.0f;
-		graphics::drawText(50, 50, 40, score, br);
+		graphics::drawText(50, 60, 50, score, br);
 	}
 	//life
 	float life = player ? player->getLife() : 0;
@@ -345,11 +339,11 @@ void Game::drawGameScreen()
 	br.outline_color[0] = 1.0f;
 	br.outline_color[1] = 1.0f;
 	br.outline_color[2] = 1.0f;
-	int x = 180;
+	int x = 230;
 	for (int i = 0; i < life; i++)
 	{
-		graphics::drawRect(CANVAS_WIDTH - x, 30, 40, 40, br);
-		x -= 30;
+		graphics::drawRect(CANVAS_WIDTH - x, 45, 60, 60, br);
+		x -= 45;
 	}
 }
 
@@ -360,15 +354,15 @@ void Game::drawEndScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 200, 2 * CANVAS_HEIGHT / 10, 80, "GAME OVER", br);
-	graphics::drawText((CANVAS_WIDTH / 2) - 50, 4 * CANVAS_HEIGHT / 10, 30, "SCORE", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 250, 2.5 * CANVAS_HEIGHT / 10, 110, "GAME OVER", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 105, 4 * CANVAS_HEIGHT / 10, 80, "SCORE", br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 215, 3 * CANVAS_HEIGHT / 10, 30, "CLICK ANYWHERE TO PLAY AGAIN", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 350, 8 * CANVAS_HEIGHT / 10, 50, "CLICK ANYWHERE TO PLAY AGAIN", br);
 	
 	printScore();
 }
@@ -383,7 +377,7 @@ void Game::printScore()
 	char score[40];
 	sprintf_s(score, "%i", player->getScore());
 	
-	graphics::drawText((CANVAS_WIDTH / 2) - 40, 5 * CANVAS_HEIGHT / 10, 40, score, br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 25, 5.5 * CANVAS_HEIGHT / 10, 80, score, br);
 }
 
 void Game::updateTitleScreen()
@@ -427,8 +421,11 @@ void Game::updateGameScreen()
 		player->update();
 	}
 
-	checkCherries();
-	checkFruits();
+	for (size_t f = 0; f < fruits.size(); f++)
+		checkFruits(f);
+
+	for (size_t c = 0;c < cherries.size(); c++)
+		checkCherries(c);
 
 	spawnFruit();
 
@@ -441,22 +438,24 @@ void Game::updateGameScreen()
 
 	if (!cherries.empty())
 	{
-		for (auto c : cherries) {
-			c->update();
+		for (auto cherry : cherries)
+		{
+			cherry->update();
 		}
 	}
 
 	if (!shots.empty())
 	{
-		for (auto s : shots) {
-			s->update();
+		for (auto shot : shots) {
+			shot->update();
 		}
 	}
 
 	if (!fruits.empty())
 	{
-		for (auto f : fruits) {
-			f->update();
+		for (auto fruit : fruits)
+		{
+			fruit->update();
 		}
 	}
 	

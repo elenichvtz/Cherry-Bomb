@@ -20,7 +20,7 @@ class Game
 
 	//for cherries
 	std::vector<Fruit*> cherries;
-	void checkCherries();
+	void checkCherries(size_t c);
 
 	//for shots
 	std::vector<Shot*> shots;
@@ -32,7 +32,7 @@ class Game
 	//for the rest of the fruits
 	std::vector<Fruit*> fruits;
 	void spawnFruit();
-	void checkFruits();
+	void checkFruits(size_t f);
 
 	//fruit spawn time
 	float fruitSpawnInterval = 800.0f;
