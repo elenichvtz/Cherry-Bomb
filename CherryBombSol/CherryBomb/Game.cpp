@@ -229,17 +229,22 @@ void Game::drawTitleScreen()
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "cb_3.png";
 	graphics::drawRect(CANVAS_WIDTH / 2, 200, 700, 400, br);
 
+	br.texture = std::string(PLAYER_ASSETS_PATH) + "inst.png";
+	graphics::drawRect(CANVAS_WIDTH - 50, 50, 70, 70, br);
+
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
+
+	graphics::drawText(CANVAS_WIDTH / 2 - 240, (9 * CANVAS_HEIGHT / 10) + 15, 50, "PRESS ENTER TO START", br);
 	
-	graphics::drawText(CANVAS_WIDTH / 2 - 65, (9 * CANVAS_HEIGHT / 10) + 15, 50, "START", br);
+	/*graphics::drawText(WINDOW_WIDTH / 2 - 65, (9 * WINDOW_HEIGHT / 10) + 15, 50, "START", br);
 	br.fill_opacity = 0.0f;
 	br.outline_opacity = 1.0f;
 	br.outline_width = 3.0f;
 	br.texture = "";
-	graphics::drawRect(CANVAS_WIDTH / 2, 9 * CANVAS_HEIGHT / 10, 150, 60, br);
+	graphics::drawRect(WINDOW_WIDTH / 2, 9 * WINDOW_HEIGHT / 10, 150, 60, br);*/
 }
 
 void Game::drawInstructionScreen()
@@ -249,16 +254,21 @@ void Game::drawInstructionScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText(CANVAS_WIDTH / 2 - 200, 100, 60, "INSTRUCTIONS", br);
+	graphics::drawText(WINDOW_WIDTH / 2 - 150, 100, 60, "HOW TO PLAY", br);
 
-	graphics::drawText(CANVAS_WIDTH/2-200, 200, 60, "blah blah blah", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 150, 35, "USE A AND D OR LEFT AND RIGHT ARROWS", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 200, 35, "TO MOVE YOUR WEAPON LEFT AND RIGHT", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 250, 35, "FIRE SHOTS BY LEFT CLICKING YOUR MOUSE", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 300, 35, "BE CAREFUL! IF YOU HIT A CHERRY YOU WILL", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 350, 35, "LOSE A LIFE! AIM FOR THE OTHER", br);
+	graphics::drawText(CANVAS_WIDTH/2-300, 400, 35, "FRUITS AND EARN A HIGH SCORE!", br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
 
-	graphics::drawText(CANVAS_WIDTH/2-200, 300, 50, "CLICK ANYWHERE TO PLAY", br);
+	graphics::drawText(CANVAS_WIDTH/2-250, 450, 50, "PRESS ENTER TO START", br);
 }
 
 void Game::drawWeaponScreen()
@@ -400,17 +410,23 @@ void Game::printScore()
 void Game::updateTitleScreen()
 {
 	graphics::getMouseState(mouse);
-	if (mouse.cur_pos_x >= CANVAS_WIDTH / 2 - 75 && mouse.cur_pos_x <= CANVAS_WIDTH / 2 + 75 &&
-		mouse.cur_pos_y >= (9 * CANVAS_HEIGHT / 10) - 30 && mouse.cur_pos_y <= (9 * CANVAS_HEIGHT / 10) + 30 && mouse.button_left_pressed)
+	if (mouse.cur_pos_x >= CANVAS_WIDTH - 85 && mouse.cur_pos_x <= CANVAS_WIDTH - 15  &&
+		mouse.cur_pos_y >= 15 && mouse.cur_pos_y <= 85 && mouse.button_left_pressed)
 	{
 		game_status = INSTRUCTIONS;
+	}
+	else if (graphics::getKeyState(graphics::SCANCODE_RETURN))
+	{
+		game_status = WEAPON;
 	}
 }
 
 void Game::updateInstructionScreen()
 {
-	graphics::getMouseState(mouse);
+	/*graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
+	{*/
+	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
 	{
 		game_status = WEAPON;
 	}
@@ -418,8 +434,10 @@ void Game::updateInstructionScreen()
 
 void Game::updateWeaponScreen()
 {
-	graphics::getMouseState(mouse);
+	/*graphics::getMouseState(mouse);
 	if (mouse.button_left_pressed)
+	{*/
+	if (graphics::getKeyState(graphics::SCANCODE_RETURN))
 	{
 		game_status = GAME;
 	}

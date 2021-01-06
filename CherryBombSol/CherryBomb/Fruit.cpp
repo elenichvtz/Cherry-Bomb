@@ -44,6 +44,18 @@ void Fruit::draw()
 	{
 		brush.texture = std::string(FRUIT_ASSETS_PATH) + "cherry.png";
 	}
+	else if (image == 4.0f)
+	{
+		brush.texture = std::string(FRUIT_ASSETS_PATH) + "banana.png";
+	}
+	else if (image == 5.0f)
+	{
+		brush.texture = std::string(FRUIT_ASSETS_PATH) + "grape.png";
+	}
+	else if (image == 6.0f)
+	{
+		brush.texture = std::string(FRUIT_ASSETS_PATH) + "strawberry.png";
+	}
 
 	brush.outline_opacity = 0.0f;
 	graphics::drawRect(pos_x, pos_y, size, size, brush);
@@ -64,8 +76,8 @@ void Fruit::draw()
 
 void Fruit::init()
 {
-	//random fruit with rand0to3()
-	image = rand0to3();
+	//random fruit with rand0to6()
+	image = rand0to6();
 	speed = 0.3f;
 	//if 0 go left, else right
 	if (rand0or1() == 0.0f)
