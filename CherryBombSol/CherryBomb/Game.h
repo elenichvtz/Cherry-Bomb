@@ -13,6 +13,8 @@ class Game
 
 	bool explosion = false;
 	float explosion_x, explosion_y, explosion_size;
+	float spawnExplosionTime = 0;
+	void spawnExplosion();
 
 	class Player* player;
 	//variable to check if player has already been initialized

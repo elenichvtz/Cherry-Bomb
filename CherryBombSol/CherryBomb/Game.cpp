@@ -27,6 +27,21 @@ void Game::checkFruits(size_t f)
 	}
 }
 
+void Game::spawnExplosion()
+{
+	spawnExplosionTime += graphics::getDeltaTime();
+	if (spawnExplosionTime >= 600)
+	{
+		explosion = false;
+
+		explosion_x = NULL;
+		explosion_y = NULL;
+		explosion_size = NULL;
+
+		spawnExplosionTime = 0;
+	}
+}
+
 void Game::checkCherries(size_t c)
 {
 	if ((cherries[c]->isActive()) == false)
@@ -57,7 +72,9 @@ void Game::spawnShot()
 
 void Game::increasefruitSpawn()
 {
-	if (player->getScore() > 500)
+	if(player->getScore() <= 500)
+		setfruitSpawnInterval(400.0f);
+	else if (player->getScore() > 500)
 		setfruitSpawnInterval(200.0f);
 	else if (player->getScore() > 1000)
 		setfruitSpawnInterval(100.0f);
@@ -147,11 +164,13 @@ void Game::checkTotalFruitCollision()
 
 void Game::resetPlayer() 
 {
-	if (player) {
+	if (player) 
+	{
 		player->setScore(0);
 		player->setLife(PLAYER_LIFE);
 		shots.clear();
 		cherries.clear();
+		fruits.clear();
 	}
 }
 
@@ -213,11 +232,11 @@ void Game::drawTitleScreen()
 	br.fill_color[2] = 1.0f;
 
 	br.outline_opacity = 0.0f;
-	br.texture = std::string(PLAYER_ASSETS_PATH) + "cb_3.png";
-	graphics::drawRect(CANVAS_WIDTH / 2, 200, 700, 400, br);
+	br.texture = std::string(PLAYER_ASSETS_PATH) + "cherry_bomb_logo.png";
+	graphics::drawRect(CANVAS_WIDTH / 2, 220, 800, 420, br);
 
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "inst.png";
-	graphics::drawRect(50, 50, 70, 70, br);
+	graphics::drawRect(CANVAS_WIDTH - 50, 50, 75, 75, br);
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
@@ -226,8 +245,8 @@ void Game::drawTitleScreen()
 
 	graphics::drawText(CANVAS_WIDTH / 2 - 240, (9 * CANVAS_HEIGHT / 10) + 15, 50, "PRESS SPACE TO START", br);
 
-	graphics::drawText(90, 50, 28, "PRESS H", br);
-	graphics::drawText(90, 70, 28, "FOR HELP", br);
+	graphics::drawText(CANVAS_WIDTH - 185, 48, 26, "PRESS H", br);
+	graphics::drawText(CANVAS_WIDTH - 185, 72, 26, "FOR HELP", br);
 }
 
 void Game::drawInstructionScreen()
@@ -309,14 +328,14 @@ void Game::drawGameScreen()
 	if (player)
 		player->draw();
 
-	for(auto i :cherries)
-		i->draw();
+	for(auto cherry :cherries)
+		cherry->draw();
 
-	for (auto s : shots)
-		s->draw();
+	for (auto shot : shots)
+		shot->draw();
 
-	for (auto f : fruits)
-		f->draw();
+	for (auto fruit : fruits)
+		fruit->draw();
 
 	graphics::Brush br;
 
@@ -333,7 +352,7 @@ void Game::drawGameScreen()
 		graphics::drawText(50, 60, 50, score, br);
 	}
 	//life
-	float life = player ? player->getLife() : 0;
+	int life = player ? player->getLife() : 0;
 
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "heart.png";
 	br.fill_opacity = 1.0f;
@@ -341,11 +360,12 @@ void Game::drawGameScreen()
 	br.outline_color[0] = 1.0f;
 	br.outline_color[1] = 1.0f;
 	br.outline_color[2] = 1.0f;
-	int x = 230;
+
+	float x = 230.0f;
 	for (int i = 0; i < life; i++)
 	{
 		graphics::drawRect(CANVAS_WIDTH - x, 45, 60, 60, br);
-		x -= 45;
+		x -= 45.0f;
 	}
 
 	//explosion effect
@@ -353,12 +373,8 @@ void Game::drawGameScreen()
 	{
 		br.texture = std::string(FRUIT_ASSETS_PATH) + "boom.png";
 		br.outline_opacity = 0.0f;
+		
 		graphics::drawRect(explosion_x, explosion_y, explosion_size, explosion_size, br);
-
-		if (graphics::getDeltaTime() > 1000)
-			br.texture = "";
-
-		explosion == false;
 	}
 }
 
@@ -375,7 +391,7 @@ void Game::drawEndScreen()
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 50, 3 * CANVAS_HEIGHT / 10, 40, "SCORE", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 95, 3 * CANVAS_HEIGHT / 10, 70, "SCORE", br);
 
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "bang.png";
 	graphics::drawRect((CANVAS_WIDTH / 2) - 15, 5.5 * CANVAS_HEIGHT / 10, 500, 250, br);
@@ -402,7 +418,7 @@ void Game::printScore()
 	char score[40];
 	sprintf_s(score, "%i", player->getScore());
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 80, 5.8 * CANVAS_HEIGHT / 10, 80, score, br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 70, 5.8 * CANVAS_HEIGHT / 10, 80, score, br);
 }
 
 void Game::updateTitleScreen()
@@ -489,6 +505,8 @@ void Game::updateGameScreen()
 	checkTotalFruitCollision();
 
 	increasefruitSpawn();
+
+	spawnExplosion();
 }
 
 void Game::updateEndScreen()

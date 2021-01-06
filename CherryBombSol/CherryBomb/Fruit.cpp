@@ -94,11 +94,11 @@ Disk Fruit::getCollisionHull() const
 	Disk disk;
 	disk.cx = pos_x;
 	disk.cy = pos_y;
-	disk.radius = size / 3.3;
+	disk.radius = size / 3.3f;
 	return disk;
 }
 
-float Fruit::fruitScore()
+int Fruit::fruitScore()
 {
 	if (size < 110.0f)
 		return 50;

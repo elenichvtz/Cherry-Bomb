@@ -7,7 +7,7 @@ class Fruit : public Object, public Collidable
 {
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT / 2;
 	float size, speed, direction, image;
-	class graphics::Brush brush;
+	graphics::Brush brush;
 	bool active = true;
 
 public:
@@ -21,7 +21,7 @@ public:
 
 	float getImage() { return image; }
 
-	float fruitScore();
+	int fruitScore();
 
 	void setFruitSpeed(float x) { speed = x; }
 
