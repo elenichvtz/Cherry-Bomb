@@ -19,7 +19,7 @@ void Shot::draw()
 	graphics::Brush brush;
 	brush.outline_opacity = 0.0f;
 	brush.fill_color[1] = 1.0f;
-	//graphics::drawRect(pos_x, pos_y, size, size, brush);
+	
 	graphics::drawDisk(pos_x, pos_y, size, brush);
 
 	if (game.getDebugMode())

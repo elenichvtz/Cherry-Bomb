@@ -8,7 +8,7 @@
 
 class Game
 {
-	typedef enum { TITLE, WEAPON, GAME, END } status_t;
+	typedef enum { TITLE,INSTRUCTIONS, WEAPON, GAME, END } status_t;
 	status_t game_status = TITLE;
 	class Player* player;
 	//variable to check if player has already been initialized
@@ -51,6 +51,7 @@ class Game
 	void resetPlayer();
 
 	void drawTitleScreen();
+	void drawInstructionScreen();
 	void drawWeaponScreen();
 	void drawGameScreen();
 	void drawEndScreen();
@@ -58,6 +59,7 @@ class Game
 	void printScore();
 
 	void updateTitleScreen();
+	void updateInstructionScreen();
 	void updateWeaponScreen();
 	void updateGameScreen();
 	void updateEndScreen();

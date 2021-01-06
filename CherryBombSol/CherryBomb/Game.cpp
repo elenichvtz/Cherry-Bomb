@@ -64,7 +64,7 @@ void Game::increasefruitSpawn()
 bool Game::checkCollision(Shot* shot, Fruit* fruit)
 {
 	//if fruit is cherry
-	if (fruit->getImage() == 0.03f)
+	if (fruit->getImage() == 3.0f)
 	{
 		if (shots.empty() || cherries.empty())
 		{
@@ -104,7 +104,7 @@ void Game::checkTotalCherryCollision()
 				std::cout << "cherry collision!!" << std::endl;
 
 				//bang!
-				graphics::playSound(std::string(AUDIO_ASSETS_PATH) + "explosion.wav", 0.4f , false);
+				graphics::playSound(std::string(AUDIO_ASSETS_PATH) + "explosion.wav", 0.3f , false);
 
 				//////
 				//graphics::Brush br;
@@ -147,7 +147,8 @@ void Game::checkTotalFruitCollision()
 	}
 }
 
-void Game::resetPlayer() {
+void Game::resetPlayer() 
+{
 	if (player) {
 		//updateScoreboard(); //TO DO:: otan paizeis prwth fora den krataei to score gia kapoio logo,
 		//to psaxnw akoma
@@ -170,6 +171,7 @@ void Game::resetPlayer() {
 void Game::update()
 {
 	if (game_status == TITLE) updateTitleScreen();
+	else if (game_status == INSTRUCTIONS) updateInstructionScreen();
 	else if (game_status == WEAPON) updateWeaponScreen();
 	else if (game_status == GAME) updateGameScreen();
 	else updateEndScreen();
@@ -187,6 +189,7 @@ void Game::draw()
 	graphics::drawRect(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT, brush);
 	
 	if (game_status == TITLE) drawTitleScreen();
+	else if (game_status == INSTRUCTIONS) drawInstructionScreen();
 	else if (game_status == WEAPON) drawWeaponScreen();
 	else if (game_status == GAME) drawGameScreen();
 	else drawEndScreen();
@@ -226,7 +229,7 @@ void Game::drawTitleScreen()
 	br.texture = std::string(PLAYER_ASSETS_PATH) + "cb_3.png";
 	graphics::drawRect(CANVAS_WIDTH / 2, 200, 700, 400, br);
 
-	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 170);
+	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
@@ -237,6 +240,25 @@ void Game::drawTitleScreen()
 	br.outline_width = 3.0f;
 	br.texture = "";
 	graphics::drawRect(CANVAS_WIDTH / 2, 9 * CANVAS_HEIGHT / 10, 150, 60, br);
+}
+
+void Game::drawInstructionScreen()
+{
+	graphics::Brush br;
+	br.fill_color[0] = 1.0f;
+	br.fill_color[1] = 1.0f;
+	br.fill_color[2] = 1.0f;
+
+	graphics::drawText(CANVAS_WIDTH / 2 - 200, 100, 60, "INSTRUCTIONS", br);
+
+	graphics::drawText(CANVAS_WIDTH/2-200, 200, 60, "blah blah blah", br);
+
+	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
+	br.fill_color[0] += flash;
+	br.fill_color[1] += flash;
+	br.fill_color[2] += flash;
+
+	graphics::drawText(CANVAS_WIDTH/2-200, 300, 50, "CLICK ANYWHERE TO PLAY", br);
 }
 
 void Game::drawWeaponScreen()
@@ -349,8 +371,14 @@ void Game::drawEndScreen()
 	br.fill_color[2] = 1.0f;
 
 	graphics::drawText((CANVAS_WIDTH / 2) - 200, 2 * CANVAS_HEIGHT / 10, 80, "GAME OVER", br);
-	graphics::drawText((CANVAS_WIDTH / 2) - 215, 3 * CANVAS_HEIGHT / 10, 30, "CLICK ANYWHERE TO PLAY AGAIN", br);
 	graphics::drawText((CANVAS_WIDTH / 2) - 50, 4 * CANVAS_HEIGHT / 10, 30, "SCORE", br);
+
+	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
+	br.fill_color[0] += flash;
+	br.fill_color[1] += flash;
+	br.fill_color[2] += flash;
+
+	graphics::drawText((CANVAS_WIDTH / 2) - 215, 3 * CANVAS_HEIGHT / 10, 30, "CLICK ANYWHERE TO PLAY AGAIN", br);
 	
 	printScore();
 }
@@ -374,6 +402,15 @@ void Game::updateTitleScreen()
 	graphics::getMouseState(mouse);
 	if (mouse.cur_pos_x >= CANVAS_WIDTH / 2 - 75 && mouse.cur_pos_x <= CANVAS_WIDTH / 2 + 75 &&
 		mouse.cur_pos_y >= (9 * CANVAS_HEIGHT / 10) - 30 && mouse.cur_pos_y <= (9 * CANVAS_HEIGHT / 10) + 30 && mouse.button_left_pressed)
+	{
+		game_status = INSTRUCTIONS;
+	}
+}
+
+void Game::updateInstructionScreen()
+{
+	graphics::getMouseState(mouse);
+	if (mouse.button_left_pressed)
 	{
 		game_status = WEAPON;
 	}
