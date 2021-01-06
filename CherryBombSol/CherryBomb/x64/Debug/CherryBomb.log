@@ -1,8 +1,1 @@
-﻿  Game.cpp
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Fruit.h(10,29): warning C4099: 'graphics::Brush': type name first seen using 'struct' now seen using 'class'
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\sgg\include\graphics.h(31): message : see declaration of 'graphics::Brush'
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(137,49): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(336,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(347,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(359,13): warning C4553: '==': result of expression not used; did you intend '='?
-  CherryBomb.vcxproj -> C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb_debug.exe
+﻿  CherryBomb.vcxproj -> C:\Users\nikim\Desktop\c\CherryBombSol\bin\CherryBomb_debug.exe

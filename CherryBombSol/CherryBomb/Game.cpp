@@ -365,24 +365,30 @@ void Game::drawGameScreen()
 void Game::drawEndScreen()
 {
 	graphics::Brush br;
+	br.outline_opacity = 0.0f;
 	br.fill_color[0] = 1.0f;
 	br.fill_color[1] = 0.0f;
 	br.fill_color[2] = 0.0f;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 250, 2.5 * CANVAS_HEIGHT / 10, 110, "GAME OVER", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 225, 2 * CANVAS_HEIGHT / 10, 100, "GAME OVER", br);
 
 	br.fill_color[1] = 1.0f;
 	br.fill_color[2] = 1.0f;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 105, 4 * CANVAS_HEIGHT / 10, 80, "SCORE", br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 50, 3 * CANVAS_HEIGHT / 10, 40, "SCORE", br);
+
+	br.texture = std::string(PLAYER_ASSETS_PATH) + "bang.png";
+	graphics::drawRect((CANVAS_WIDTH / 2) - 15, 5.5 * CANVAS_HEIGHT / 10, 500, 250, br);
+
+	br.texture = "";
 
 	float flash = 0.3f + 0.9f * sinf(graphics::getGlobalTime() / 200);
 	br.fill_color[0] += flash;
 	br.fill_color[1] += flash;
 	br.fill_color[2] += flash;
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 300, 8 * CANVAS_HEIGHT / 10, 50, "PRESS ENTER TO PLAY AGAIN", br);
-	
+	graphics::drawText((CANVAS_WIDTH / 2) - 300, 8.5 * CANVAS_HEIGHT / 10, 50, "PRESS ENTER TO PLAY AGAIN", br);
+
 	printScore();
 }
 
@@ -395,8 +401,8 @@ void Game::printScore()
 
 	char score[40];
 	sprintf_s(score, "%i", player->getScore());
-	
-	graphics::drawText((CANVAS_WIDTH / 2) - 25, 6 * CANVAS_HEIGHT / 10, 80, score, br);
+
+	graphics::drawText((CANVAS_WIDTH / 2) - 80, 5.8 * CANVAS_HEIGHT / 10, 80, score, br);
 }
 
 void Game::updateTitleScreen()
