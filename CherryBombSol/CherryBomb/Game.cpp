@@ -129,7 +129,7 @@ void Game::checkTotalCherryCollision()
 
 				explosion_x = cherries[c]->getX();
 				explosion_y = cherries[c]->getY();
-				explosion_size = cherries[c]->getSize();
+				explosion_size = 1.5*cherries[c]->getSize();
 
 				cherries.erase(cherries.begin() + c);
 				shots.erase(shots.begin() + s);
