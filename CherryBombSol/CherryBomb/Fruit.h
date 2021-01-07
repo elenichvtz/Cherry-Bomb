@@ -7,9 +7,9 @@ class Fruit : public Object, public Collidable
 {
 	float pos_x = CANVAS_WIDTH / 2, pos_y = CANVAS_HEIGHT / 2;
 	float size, speed, direction, image;
-	graphics::Brush brush;
 	bool active = true;
 
+	graphics::Brush brush;
 public:
 	Fruit(const class Game& game);
 	~Fruit();

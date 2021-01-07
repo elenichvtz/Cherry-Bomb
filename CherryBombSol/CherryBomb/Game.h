@@ -7,7 +7,7 @@
 
 class Game
 {
-	typedef enum { TITLE,INSTRUCTIONS, WEAPON, GAME, END } status_t;
+	typedef enum { TITLE, INSTRUCTIONS, WEAPON, GAME, END } status_t;
 	status_t game_status = TITLE;
 	bool debug_mode = false;
 

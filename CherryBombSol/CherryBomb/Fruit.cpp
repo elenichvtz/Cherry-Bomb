@@ -72,10 +72,11 @@ void Fruit::draw()
 void Fruit::init()
 {
 	//random fruit with rand0to6()
-	image = rand0to6();
+	image = rand0toN(6);
 	speed = 0.3f;
+
 	//if 0 go left, else right
-	if (rand0or1() == 0.0f)
+	if (rand0toN(1) == 0.0f)
 	{
 		direction = 0.0f;
 		pos_x = -110;

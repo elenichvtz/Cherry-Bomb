@@ -1,3 +1,11 @@
-﻿  Game.cpp
-C:\Users\nikim\Desktop\c\CherryBombSol\CherryBomb\Game.cpp(132,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  CherryBomb.vcxproj -> C:\Users\nikim\Desktop\c\CherryBombSol\bin\CherryBomb_debug.exe
+﻿  Fruit.cpp
+  Game.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(132,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Main.cpp
+  Object.cpp
+  Player.cpp
+  Shot.cpp
+  functions.cpp
+C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\CherryBomb\functions.cpp(9,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  CherryBomb.vcxproj -> C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb_debug.exe

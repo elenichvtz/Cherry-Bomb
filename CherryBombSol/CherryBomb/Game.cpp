@@ -4,6 +4,8 @@
 void Game::spawnFruit()
 {
 	fruitcurrentSpawnTime += graphics::getDeltaTime();
+
+	//spawn fruit every (fruitSpawnInterval) ms
 	if (fruitcurrentSpawnTime >= fruitSpawnInterval)
 	{
 		Fruit* fruit = new Fruit(*this);
@@ -30,13 +32,11 @@ void Game::checkFruits(size_t f)
 void Game::spawnExplosion()
 {
 	spawnExplosionTime += graphics::getDeltaTime();
+
+	//keep explosion on the screen for 600 ms
 	if (spawnExplosionTime >= 600)
 	{
 		explosion = false;
-
-		explosion_x = NULL;
-		explosion_y = NULL;
-		explosion_size = NULL;
 
 		spawnExplosionTime = 0;
 	}
