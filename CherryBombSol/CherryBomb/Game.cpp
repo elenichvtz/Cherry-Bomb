@@ -33,8 +33,8 @@ void Game::spawnExplosion()
 {
 	spawnExplosionTime += graphics::getDeltaTime();
 
-	//keep explosion on the screen for 600 ms
-	if (spawnExplosionTime >= 600)
+	//keep explosion on the screen for 500 ms
+	if (spawnExplosionTime >= 500)
 	{
 		explosion = false;
 
