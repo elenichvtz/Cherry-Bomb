@@ -30,7 +30,6 @@ class Game
 	//for shots
 	std::vector<Shot*> shots;
 	void checkShots();
-
 	graphics::MouseState mouse;
 	void spawnShot();
 

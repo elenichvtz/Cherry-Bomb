@@ -418,7 +418,7 @@ void Game::printScore()
 	char score[40];
 	sprintf_s(score, "%i", player->getScore());
 
-	graphics::drawText((CANVAS_WIDTH / 2) - 70, 5.8 * CANVAS_HEIGHT / 10, 80, score, br);
+	graphics::drawText((CANVAS_WIDTH / 2) - 80, 5.8 * CANVAS_HEIGHT / 10, 80, score, br);
 }
 
 void Game::updateTitleScreen()
