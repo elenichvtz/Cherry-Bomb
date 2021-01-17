@@ -204,7 +204,7 @@ void Game::draw()
 void Game::init()
 {
 	graphics::setFont(std::string(FONT_ASSETS_PATH) + "ARCADECLASSIC.ttf");
-	graphics::playMusic(std::string(AUDIO_ASSETS_PATH) + "NCT_127-Cherry_Bomb_Instrumental.mp3", 0.9f, true, 3000);
+	graphics::playMusic(std::string(AUDIO_ASSETS_PATH) + "Dream_Speedrun_Music.mp3", 0.9f, true, 3000);
 }
 
 Game::Game()
