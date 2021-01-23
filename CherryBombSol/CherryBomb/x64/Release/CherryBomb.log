@@ -1,7 +1,15 @@
 ﻿  Fruit.cpp
+  functions.cpp
+C:\Users\eleni\Downloads\Downloads\GIT\cpp\CherryBombSol\CherryBomb\functions.cpp(9,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Game.cpp
+C:\Users\eleni\Downloads\Downloads\GIT\cpp\CherryBombSol\CherryBomb\Game.cpp(138,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Main.cpp
+  Object.cpp
+  Player.cpp
+  Shot.cpp
   Generating code
-  7 of 331 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
+  329 of 335 functions (98.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    12 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  CherryBomb.vcxproj -> C:\Users\eleni\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb.exe
+  CherryBomb.vcxproj -> C:\Users\eleni\Downloads\Downloads\GIT\cpp\CherryBombSol\bin\CherryBomb.exe

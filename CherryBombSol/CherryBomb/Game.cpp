@@ -25,6 +25,8 @@ void Game::checkFruits(size_t f)
 {
 	if ((fruits[f]->isActive()) == false)
 	{
+		delete(fruits[f]);
+		fruits[f] = nullptr;
 		fruits.erase(fruits.begin() + f);
 	}
 }
@@ -46,6 +48,8 @@ void Game::checkCherries(size_t c)
 {
 	if ((cherries[c]->isActive()) == false)
 	{
+		delete(cherries[c]);
+		cherries[c] = nullptr;
 		cherries.erase(cherries.begin() + c);
 	}
 }
@@ -56,6 +60,8 @@ void Game::checkShots()
 	{
 		if ((shots[s]->isActive())==false)
 		{
+			delete(shots[s]);
+			shots[s] = nullptr;
 			shots.erase(shots.begin() + s);
 		}
 	}
